@@ -1,0 +1,718 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>1D F-Area Full Geochemistry &mdash; Amanzi 0.86-dev documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.86-dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Amanzi 0.86-dev documentation" href="../../../index.html" />
+    <link rel="up" title="Chemistry" href="../index.html" />
+    <link rel="next" title="Transport" href="../../transport/index.html" />
+    <link rel="prev" title="1D Ion exchange" href="../ion_exchange_1d/amanzi_u-1d-ion-exchange.html" /> 
+ <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    TeX: {
+        extensions: ["mhchem.js"]
+    }
+  });
+</script>
+
+  </head>
+  <body role="document">
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<a href="../../../index.html"><img src="../../../_static/logo.png" border="0" alt="py4sci"/></a>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../transport/index.html" title="Transport"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../ion_exchange_1d/amanzi_u-1d-ion-exchange.html" title="1D Ion exchange"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../../index.html">home</a>|&nbsp;</li>
+        <li><a href="../../../search.html">search</a>|&nbsp;</li>
+
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Benchmark Testing</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="../index.html" accesskey="U">Chemistry</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">1D F-Area Full Geochemistry</a><ul>
+<li><a class="reference internal" href="#overview-and-capabilities-tested">Overview and Capabilities tested</a></li>
+<li><a class="reference internal" href="#background">Background</a></li>
+<li><a class="reference internal" href="#model">Model</a><ul>
+<li><a class="reference internal" href="#flow-and-transport">Flow and transport</a></li>
+<li><a class="reference internal" href="#geochemistry">Geochemistry</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#problem-specification">Problem Specification</a><ul>
+<li><a class="reference internal" href="#id15">Flow and transport</a></li>
+<li><a class="reference internal" href="#id16">Geochemistry</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#results-and-comparison">Results and Comparison</a><ul>
+<li><a class="reference internal" href="#simulation-results">Simulation results</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#references">References</a></li>
+<li><a class="reference internal" href="#about">About</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../ion_exchange_1d/amanzi_u-1d-ion-exchange.html"
+                        title="previous chapter">1D Ion exchange</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../../transport/index.html"
+                        title="next chapter">Transport</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../../_sources/benchmarking/chemistry/farea_1d/amanzi_u-1d-farea.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="d-f-area-full-geochemistry">
+<h1>1D F-Area Full Geochemistry<a class="headerlink" href="#d-f-area-full-geochemistry" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview-and-capabilities-tested">
+<h2>Overview and Capabilities tested<a class="headerlink" href="#overview-and-capabilities-tested" title="Permalink to this headline">¶</a></h2>
+<p>This test example performs the simulation of a complex geochemical network in a simple 1D flow domain, combining reaction types described separately in <a class="reference internal" href="../tritium_1d/amanzi_u-1d-tritium.html"><span class="doc">1D Tritium first-order decay</span></a>, <a class="reference internal" href="../calcite_1d/amanzi_u-1d-calcite.html"><span class="doc">1D Calcite dissolution</span></a>, and <a class="reference internal" href="../ion_exchange_1d/amanzi_u-1d-ion-exchange.html"><span class="doc">1D Ion exchange</span></a>. The reaction network is based on the Savannah River Site F-Area geochemistry. This example tests the following capabilities:</p>
+<ul>
+<li><p class="first">1D flow</p>
+</li>
+<li><p class="first">1D advective transport</p>
+</li>
+<li><p class="first">Geochemical reactions</p>
+<blockquote>
+<div><ul class="simple">
+<li>Aqueous complexation reactions (equilibrium)</li>
+<li>Radioactive decay</li>
+<li>Mineral dissolution</li>
+<li>Ion exchange</li>
+<li>Surface complexation</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>For details on this test, see <a class="reference internal" href="#about-farea"><span class="std std-ref">About</span></a>.</p>
+</div>
+<div class="section" id="background">
+<h2>Background<a class="headerlink" href="#background" title="Permalink to this headline">¶</a></h2>
+<p>This problem intends to demonstrate the ASCEM capability of modeling complex geochemical reactions and contaminant transport. The model is based on the one developed at the Savannah River Site F-Area for predicting the uranium and acidic plume migration in the groundwater <a class="reference internal" href="#bea2013" id="id1">[Bea2013]</a>.</p>
+<p>The SRS is located in south-central South Carolina, near Aiken, approximately 100 miles from the Atlantic Coast. The SRS F-Area seepage basins received approximately 7.1 billion litters of acidic, low-level waste solutions from 1950 through 1989 <a class="reference internal" href="#millings2012" id="id2">[Millings2012]</a>. After the basins were closed and capped in 1991, the site has been under active remediation, including the pump-and-treat and hybrid funnel-and-gate system.</p>
+<p>The highly acidic plume including many radionuclides (e.g., uranium isotopes, strontium-90, iodine-129, technetium, and tritium) is developed from the basins to downgradient in groundwater. The concentration of U-238 and pH are of the current main interest at the site. Understanding and predicting the plume mobility and its fate requires modeling complex geochemistry, since pH is influenced by mineral dissolution and precipitation, and the uranium mobility is greatly influenced by pH.</p>
+</div>
+<div class="section" id="model">
+<h2>Model<a class="headerlink" href="#model" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="flow-and-transport">
+<h3>Flow and transport<a class="headerlink" href="#flow-and-transport" title="Permalink to this headline">¶</a></h3>
+<p>See the <a class="reference internal" href="../tracer_1d/amanzi_u-1d-tracer.html"><span class="doc">1D Conservative tracer transport</span></a> example.</p>
+</div>
+<div class="section" id="geochemistry">
+<h3>Geochemistry<a class="headerlink" href="#geochemistry" title="Permalink to this headline">¶</a></h3>
+<p>The primary geochemical system consists of 13 reactive chemical components and 8 minerals <a class="reference internal" href="#bea2013" id="id3">[Bea2013]</a>. A detailed list of reactions and geochemical parameters is included in the tables below. Further detail can be found in <a class="reference internal" href="#freshley2012" id="id4">[Freshley2012]</a>.</p>
+<p>The geochemical processes include:</p>
+<ul class="simple">
+<li>Equilibrium aqueous complexation (Table 1)</li>
+<li>Mineral adsorption/desorption (nonelectrostatic surface complexation) (Table 2)</li>
+<li>Equilibrium ion exchange (Table 2)</li>
+<li>Kinetically controlled mineral dissolution and precipitation (Table 3)</li>
+</ul>
+<p>The sorption model is based on a single-site equilibrium, pH-dependent surface complexation model, which provides the principal control on the uranium migration rate. The nonelectrostatic model used here is applied to the bulk sediment rather than to specific pure mineral phases that serve as sorbents in the conventional electrostatic model. Additionally, the nonelectrostatic model does not assume the presence of well-defined mineral phases <a class="reference internal" href="#davis1998" id="id5">[Davis1998]</a>. An ion exchange model includes reactions involving the major cations (<span class="math">\(Ca^{2+}\)</span>, <span class="math">\(Na{+}\)</span>, and <span class="math">\(Al^{3+}\)</span>, along with <span class="math">\(H^+\)</span>) and provides primary pH buffering along with the mineral reactions.</p>
+<p><strong>Table 1. Aqueous complexes.</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="66%" />
+<col width="34%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Reaction</th>
+<th class="head">logK (25ºC)</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><span class="math">\(\ce{OH^- &lt;=&gt; H2O - H^+}\)</span></td>
+<td>13.99</td>
+</tr>
+<tr class="row-odd"><td><span class="math">\(\ce{AlOH^{2+} &lt;=&gt; H2O - H^+ + Al^{3+}}\)</span></td>
+<td>4.96</td>
+</tr>
+<tr class="row-even"><td><span class="math">\(\ce{Al(OH)2^+ &lt;=&gt; 2 H2O -2 H^+ + Al^{3+}}\)</span></td>
+<td>10.59</td>
+</tr>
+<tr class="row-odd"><td><span class="math">\(\ce{Al(OH)3(aq) &lt;=&gt; 3 H2O -3 H^+ + Al^{3+}}\)</span></td>
+<td>16.16</td>
+</tr>
+<tr class="row-even"><td><span class="math">\(\ce{Al(OH)4^- &lt;=&gt; 4 H2O -4 H^+ + Al^{3+}}\)</span></td>
+<td>22.88</td>
+</tr>
+<tr class="row-odd"><td><span class="math">\(\ce{CaOH^+ &lt;=&gt; H2O - H^+ + Ca^{2+}}\)</span></td>
+<td>12.85</td>
+</tr>
+<tr class="row-even"><td><span class="math">\(\ce{CaHCO3^+ &lt;=&gt; H2O - H^+ + Ca^{2+} + CO2(aq)}\)</span></td>
+<td>5.3</td>
+</tr>
+<tr class="row-odd"><td><span class="math">\(\ce{CaCO3(aq) &lt;=&gt; H2O -2 H^+ + Ca^{2+} + CO2(aq)}\)</span></td>
+<td>13.35</td>
+</tr>
+<tr class="row-even"><td><span class="math">\(\ce{CO3^{2-} &lt;=&gt; H2O -2 H^+ + CO2(aq)}\)</span></td>
+<td>16.67</td>
+</tr>
+<tr class="row-odd"><td><span class="math">\(\ce{HCO3^- &lt;=&gt; H2O - H+ + CO2(aq)}\)</span></td>
+<td>6.34</td>
+</tr>
+<tr class="row-even"><td><span class="math">\(\ce{NaCO3^- &lt;=&gt; H2O -2 H^+ + CO2(aq) + Na^+}\)</span></td>
+<td>16.16</td>
+</tr>
+<tr class="row-odd"><td><span class="math">\(\ce{NaHCO3(aq) &lt;=&gt;  H2O - H^+ + CO2(aq) + Na^+}\)</span></td>
+<td>6.19</td>
+</tr>
+<tr class="row-even"><td><span class="math">\(\ce{NaOH(aq) &lt;=&gt; H2O - H^+ + Na^+}\)</span></td>
+<td>14.78</td>
+</tr>
+<tr class="row-odd"><td><span class="math">\(\ce{MgCO3(aq) &lt;=&gt; H2O -2 H^+ + CO2(aq) + Mg^{2+}}\)</span></td>
+<td>13.69</td>
+</tr>
+<tr class="row-even"><td><span class="math">\(\ce{MgOH^+ &lt;=&gt; H2O - H^+ + Mg^{2+}}\)</span></td>
+<td>11.79</td>
+</tr>
+<tr class="row-odd"><td><span class="math">\(\ce{MgHCO3^+ &lt;=&gt;  H2O - H^+ + CO2(aq) + Mg^{2+}}\)</span></td>
+<td>5.31</td>
+</tr>
+<tr class="row-even"><td><span class="math">\(\ce{(UO2)2(OH)2^{2+} &lt;=&gt; 2 H2O -2 H^+ +2 UO2^{2+}}\)</span></td>
+<td>5.63</td>
+</tr>
+<tr class="row-odd"><td><span class="math">\(\ce{(UO2)2CO3(OH)3^- &lt;=&gt; 4 H2O -5 H^+ + CO2(aq) + 2 UO2^{2+}}\)</span></td>
+<td>17.57</td>
+</tr>
+<tr class="row-even"><td><span class="math">\(\ce{(UO2)2OH^{3+} &lt;=&gt; H2O -1 H^+ + 2 UO2^{2+}}\)</span></td>
+<td>2.71</td>
+</tr>
+<tr class="row-odd"><td><span class="math">\(\ce{(UO2)3(CO3)6^{6-} &lt;=&gt; 6 H2O -12 H^+ + 6 CO2(aq) + 3 UO2^{2+}}\)</span></td>
+<td>46.13</td>
+</tr>
+<tr class="row-even"><td><span class="math">\(\ce{(UO2)3(OH)4^{2+} &lt;=&gt; 4 H2O -4 H^+ + 3 UO2^{2+}}\)</span></td>
+<td>11.93</td>
+</tr>
+<tr class="row-odd"><td><span class="math">\(\ce{UO2(OH)4^{2-} &lt;=&gt; 4 H2O -4 H^+ + UO2^{2+}}\)</span></td>
+<td>33.03</td>
+</tr>
+<tr class="row-even"><td><span class="math">\(\ce{(UO2)3(OH)5^+ &lt;=&gt; 5 H2O -5 H^+ + 3 UO2^{2+}}\)</span></td>
+<td>15.59</td>
+</tr>
+<tr class="row-odd"><td><span class="math">\(\ce{(UO2)3(OH)7^- &lt;=&gt; 7 H2O -7 H^+ + 3 UO2^{2}}\)</span></td>
+<td>31.05</td>
+</tr>
+<tr class="row-even"><td><span class="math">\(\ce{(UO2)3O(OH)2(HCO3)^+ &lt;=&gt; 4 H2O -5 H^+ + CO2(aq) + 3 UO2^{2+}}\)</span></td>
+<td>16.06</td>
+</tr>
+<tr class="row-odd"><td><span class="math">\(\ce{(UO2)4(OH)7^+ &lt;=&gt; 7 H2O -7 H^+ + 4 UO2^{2+}}\)</span></td>
+<td>21.95</td>
+</tr>
+<tr class="row-even"><td><span class="math">\(\ce{UO2NO3^+ &lt;=&gt; NO3^- + UO2^{2+}}\)</span></td>
+<td>-0.28</td>
+</tr>
+<tr class="row-odd"><td><span class="math">\(\ce{UO2OH^+ &lt;=&gt; H2O -1 H^+ + 1 UO2^{2+}}\)</span></td>
+<td>5.21</td>
+</tr>
+<tr class="row-even"><td><span class="math">\(\ce{UO2(OH)2(aq) &lt;=&gt; 2 H2O -2 H^+ + UO2^{2+}}\)</span></td>
+<td>10.31</td>
+</tr>
+<tr class="row-odd"><td><span class="math">\(\ce{UO2(OH)3^- &lt;=&gt; 3 H2O -3 H^+ + UO2^{2+}}\)</span></td>
+<td>19.22</td>
+</tr>
+<tr class="row-even"><td><span class="math">\(\ce{UO2CO3(aq) &lt;=&gt; H2O -2 H^+ + CO2(aq) + UO2^{2+}}\)</span></td>
+<td>7.01</td>
+</tr>
+<tr class="row-odd"><td><span class="math">\(\ce{UO2(CO3)2^{2-} &lt;=&gt; 2 H2O -4 H^+ + 2 CO2(aq) + UO2^{2+}}\)</span></td>
+<td>16.44</td>
+</tr>
+<tr class="row-even"><td><span class="math">\(\ce{UO2(CO3)3^{4-} &lt;=&gt; 3 H2O -6 H^+ + 3 CO2(aq) + UO2^{2+}}\)</span></td>
+<td>28.46</td>
+</tr>
+<tr class="row-odd"><td><span class="math">\(\ce{CaUO2(CO3)3^{2-} &lt;=&gt; 3 H2O -6 H^+ + Ca^{2+} + 3 CO2(aq) + UO2^{2+}}\)</span></td>
+<td>22.84</td>
+</tr>
+<tr class="row-even"><td><span class="math">\(\ce{Ca2UO2(CO3)3(aq) &lt;=&gt; 3 H2O -6 H^+ + 2 Ca^{2+} + 3 CO2(aq) + UO2^{2}}\)</span></td>
+<td>19.32</td>
+</tr>
+<tr class="row-odd"><td><span class="math">\(\ce{MgUO2(CO3)3^{2-} &lt;=&gt; 3 H2O -6 H^+ + 3 CO2(aq) + Mg^{2+} + UO2^{2+}}\)</span></td>
+<td>23.91</td>
+</tr>
+<tr class="row-even"><td><span class="math">\(\ce{UO2OSi(OH)3^+ &lt;=&gt; 2 H2O - H^+ + SiO2(aq) + UO2^{2+}}\)</span></td>
+<td>2.48</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Table 2. Surface complexation and cation-exchange reactions</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="66%" />
+<col width="34%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Reaction</th>
+<th class="head">logK (25ºC)</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Surface Complexation (*)</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><span class="math">\(\ce{({&gt;}SO)UO2^{+} &lt;=&gt; {&gt;}SOH^{-} - H^{+} + UO2^{2+}}\)</span></td>
+<td>-0.44</td>
+</tr>
+<tr class="row-even"><td>Cation Exchange (Gaines-Thomas convention)</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><span class="math">\(\ce{Na^+X &lt;=&gt; 1.0 Na^+ + X^-}\)</span></td>
+<td>1.0</td>
+</tr>
+<tr class="row-even"><td><span class="math">\(\ce{Ca^{2+}X &lt;=&gt; Ca^{2+} + 2 X^-}\)</span></td>
+<td>0.316</td>
+</tr>
+<tr class="row-odd"><td><span class="math">\(\ce{Al^{3+}X &lt;=&gt; Al^{3+} + 3 X^-}\)</span></td>
+<td>1.71</td>
+</tr>
+<tr class="row-even"><td><span class="math">\(\ce{H^+X &lt;=&gt; H^+ + X^-}\)</span></td>
+<td>0.025</td>
+</tr>
+</tbody>
+</table>
+<p>(*) Bulk site concentration = 0.1801 <span class="math">\(\text{moles sites m}^{-3}\)</span></p>
+<p><strong>Table 3. Mineral dissolution/precipitation reactions</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="56%" />
+<col width="17%" />
+<col width="27%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Reaction</th>
+<th class="head">logK (25ºC)</th>
+<th class="head">Reference</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><span class="math">\(\ce{Quartz &lt;=&gt; SiO2(aq)}\)</span></td>
+<td>-3.7501</td>
+<td><a class="reference internal" href="#snl2007" id="id6">[SNL2007]</a>, <a class="reference internal" href="#guillaumont2003" id="id7">[Guillaumont2003]</a></td>
+</tr>
+<tr class="row-odd"><td><span class="math">\(\ce{Kaolinite &lt;=&gt; 5 H2O -6 H^+ +2 Al^{3+} + 2 SiO2(aq)}\)</span></td>
+<td>7.57</td>
+<td><a class="reference internal" href="#yangsteefel2008" id="id8">[YangSteefel2008]</a></td>
+</tr>
+<tr class="row-even"><td><span class="math">\(\ce{Goethite &lt;=&gt; 2 H2O -3 H^+ + Fe^{3+}}\)</span></td>
+<td>0.1758</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><span class="math">\(\ce{Schoepite &lt;=&gt; 3 H2O -2 H^+ + UO2^{2+}}\)</span></td>
+<td>4.8443</td>
+<td><a class="reference internal" href="#snl2007" id="id9">[SNL2007]</a>, <a class="reference internal" href="#guillaumont2003" id="id10">[Guillaumont2003]</a></td>
+</tr>
+<tr class="row-even"><td><span class="math">\(\ce{Gibbsite &lt;=&gt; 3 H2O -3 H^+ + Al^{3+}}\)</span></td>
+<td>7.738</td>
+<td><a class="reference internal" href="#pokrovskii-helgeson1995" id="id11">[Pokrovskii-Helgeson1995]</a></td>
+</tr>
+<tr class="row-odd"><td><span class="math">\(\ce{Jurbanite &lt;=&gt; 6 H2O -1 H^+ + Al^{3+} + SO4^{2-}}\)</span></td>
+<td>-3.8</td>
+<td><a class="reference internal" href="#nordstrom1982" id="id12">[Nordstrom1982]</a></td>
+</tr>
+<tr class="row-even"><td><span class="math">\(\ce{Basaluminite &lt;=&gt; 15 H2O -10 H^+ + 4 Al^{3+} + SO4^{2-}}\)</span></td>
+<td>22.251</td>
+<td><a class="reference internal" href="#nordstrom1982" id="id13">[Nordstrom1982]</a></td>
+</tr>
+<tr class="row-odd"><td><span class="math">\(\ce{Opal &lt;=&gt;  SiO2(aq)}\)</span></td>
+<td>-3.005</td>
+<td><a class="reference internal" href="#sonnenthal-spycher2000" id="id14">[Sonnenthal-Spycher2000]</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="problem-specification">
+<h2>Problem Specification<a class="headerlink" href="#problem-specification" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id15">
+<h3>Flow and transport<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<p>See the <a class="reference internal" href="../tracer_1d/amanzi_u-1d-tracer.html"><span class="doc">1D Conservative tracer transport</span></a> example.</p>
+</div>
+<div class="section" id="id16">
+<h3>Geochemistry<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
+<p>Rate expression for mineral dissolution-precipitation reactions</p>
+<div class="math" id="equation-mineralrate">
+<span class="eqno">(1)</span>\[r_j= A_j \times k_j \times a_{H^+}^p \times (1 - \Omega)\]</div>
+<p><strong>Table 4. Kinetic parameters for mineral reactions</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="51%" />
+<col width="32%" />
+<col width="17%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Mineral reaction</th>
+<th class="head"><span class="math">\(log(k_j)\)</span></th>
+<th class="head">p</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><span class="math">\(\ce{Quartz}\)</span></td>
+<td>-13.345</td>
+<td>0</td>
+</tr>
+<tr class="row-odd"><td><span class="math">\(\ce{Kaolinite}\)</span></td>
+<td>-12.967</td>
+<td>0.777</td>
+</tr>
+<tr class="row-even"><td><span class="math">\(\ce{Goethite}\)</span></td>
+<td>-7.94</td>
+<td>0</td>
+</tr>
+<tr class="row-odd"><td><span class="math">\(\ce{Schoepite}\)</span></td>
+<td>0.301</td>
+<td>0</td>
+</tr>
+<tr class="row-even"><td><span class="math">\(\ce{Gibbsite}\)</span></td>
+<td>-11.5</td>
+<td>0</td>
+</tr>
+<tr class="row-odd"><td><span class="math">\(\ce{Jurbanite}\)</span></td>
+<td>-8</td>
+<td>0</td>
+</tr>
+<tr class="row-even"><td><span class="math">\(\ce{Basaluminite}\)</span></td>
+<td>-8</td>
+<td>0</td>
+</tr>
+<tr class="row-odd"><td><span class="math">\(\ce{Opal}\)</span></td>
+<td>-12.135</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Table 5. Chemical composition for the background (initial) and seepage (left boundary) solutions</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="22%" />
+<col width="26%" />
+<col width="26%" />
+<col width="26%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Component</th>
+<th class="head">Background</th>
+<th class="head">Seepage</th>
+<th class="head">Units</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><span class="math">\(\ce{pH}\)</span></td>
+<td>5.4</td>
+<td>2.5</td>
+<td>pH units</td>
+</tr>
+<tr class="row-odd"><td><span class="math">\(\ce{Na}\)</span></td>
+<td><span class="math">\(2.78\times10^{-4}\)</span></td>
+<td><span class="math">\(3.05\times10^{-4}\)</span></td>
+<td><span class="math">\(\text{mol kgw}^{-1}\)</span></td>
+</tr>
+<tr class="row-even"><td><span class="math">\(\ce{Cl}\)</span></td>
+<td><span class="math">\(9.98\times10^{-3}\)</span></td>
+<td><span class="math">\(3.39\times10^{-5}\)</span></td>
+<td><span class="math">\(\text{mol kgw}^{-1}\)</span></td>
+</tr>
+<tr class="row-odd"><td><span class="math">\(\ce{CO2(aq)}\)</span></td>
+<td><span class="math">\(1.23\times10^{-5}\)</span></td>
+<td><span class="math">\(1.07\times10^{-5}\)</span></td>
+<td><span class="math">\(\text{mol kgw}^{-1}\)</span></td>
+</tr>
+<tr class="row-even"><td><span class="math">\(\ce{Al}\)</span></td>
+<td><span class="math">\(2.2\times10^{-8}\)</span></td>
+<td><span class="math">\(10^{-8}\)</span></td>
+<td><span class="math">\(\text{mol kgw}^{-1}\)</span></td>
+</tr>
+<tr class="row-odd"><td><span class="math">\(\ce{Fe(III)}\)</span></td>
+<td><span class="math">\(2.5\times10^{-16}\)</span></td>
+<td><span class="math">\(2.41\times10^{-6}\)</span></td>
+<td><span class="math">\(\text{mol kgw}^{-1}\)</span></td>
+</tr>
+<tr class="row-even"><td><span class="math">\(\ce{K}\)</span></td>
+<td><span class="math">\(3.32\times10^{-5}\)</span></td>
+<td><span class="math">\(1.72\times10^{-6}\)</span></td>
+<td><span class="math">\(\text{mol kgw}^{-1}\)</span></td>
+</tr>
+<tr class="row-odd"><td><span class="math">\(\ce{Ca}\)</span></td>
+<td><span class="math">\(10^{-5}\)</span></td>
+<td><span class="math">\(10^{-5}\)</span></td>
+<td><span class="math">\(\text{mol kgw}^{-1}\)</span></td>
+</tr>
+<tr class="row-even"><td><span class="math">\(\ce{Mg}\)</span></td>
+<td><span class="math">\(5.35\times10^{-3}\)</span></td>
+<td><span class="math">\(2.47\times10^{-6}\)</span></td>
+<td><span class="math">\(\text{mol kgw}^{-1}\)</span></td>
+</tr>
+<tr class="row-odd"><td><span class="math">\(\ce{U(VI)}\)</span></td>
+<td><span class="math">\(1.25\times10^{-10}\)</span></td>
+<td><span class="math">\(3.01\times10^{-5}\)</span></td>
+<td><span class="math">\(\text{mol kgw}^{-1}\)</span></td>
+</tr>
+<tr class="row-even"><td><span class="math">\(\ce{Nitrate}\)</span></td>
+<td><span class="math">\(10^{-3}\)</span></td>
+<td><span class="math">\(10^{-2}\)</span></td>
+<td><span class="math">\(\text{mol kgw}^{-1}\)</span></td>
+</tr>
+<tr class="row-odd"><td><span class="math">\(\ce{SO4}\)</span></td>
+<td><span class="math">\(2.25\times10^{-5}\)</span></td>
+<td><span class="math">\(4.8\times10^{-5}\)</span></td>
+<td><span class="math">\(\text{mol kgw}^{-1}\)</span></td>
+</tr>
+<tr class="row-even"><td><span class="math">\(\ce{SiO2(aq)}\)</span></td>
+<td><span class="math">\(1.77\times10^{-4}\)</span></td>
+<td><span class="math">\(1.18\times10^{-4}\)</span></td>
+<td><span class="math">\(\text{mol kgw}^{-1}\)</span></td>
+</tr>
+<tr class="row-odd"><td><span class="math">\(\ce{^3H}\)</span></td>
+<td><span class="math">\(10^{-15}\)</span></td>
+<td><span class="math">\(2.17\times10^{-9}\)</span></td>
+<td><span class="math">\(\text{mol kgw}^{-1}\)</span></td>
+</tr>
+<tr class="row-even"><td><span class="math">\(\ce{pCO2(g)}\)</span></td>
+<td><span class="math">\(10^{-3.5}\)</span></td>
+<td><span class="math">\(10^{-3.5}\)</span></td>
+<td><span class="math">\(\text{mol kgw}^{-1}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Table 6. Mineral volume fractions (intial), reactive surface areas and molar volumes</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="32%" />
+<col width="21%" />
+<col width="24%" />
+<col width="24%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head" rowspan="2">Mineral reaction</th>
+<th class="head">Volume fraction</th>
+<th class="head">Surface area</th>
+<th class="head">Molar Volume</th>
+</tr>
+<tr class="row-even"><th class="head"><span class="math">\(m^3/m^3\)</span></th>
+<th class="head"><span class="math">\(cm^2/cm^3\)</span></th>
+<th class="head"><span class="math">\(cm^3/mol\)</span></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-odd"><td><span class="math">\(\ce{Quartz}\)</span></td>
+<td>0.88</td>
+<td>3262.3</td>
+<td>22.68</td>
+</tr>
+<tr class="row-even"><td><span class="math">\(\ce{Kaolinite}\)</span></td>
+<td>0.11</td>
+<td>59093.9</td>
+<td>99.52</td>
+</tr>
+<tr class="row-odd"><td><span class="math">\(\ce{Goethite}\)</span></td>
+<td>0.016</td>
+<td>11076.3</td>
+<td>20.82</td>
+</tr>
+<tr class="row-even"><td><span class="math">\(\ce{Schoepite}\)</span></td>
+<td>0.0</td>
+<td>0.1</td>
+<td>66.08</td>
+</tr>
+<tr class="row-odd"><td><span class="math">\(\ce{Gibbsite}\)</span></td>
+<td>0.0</td>
+<td>0.1</td>
+<td>31.95</td>
+</tr>
+<tr class="row-even"><td><span class="math">\(\ce{Jurbanite}\)</span></td>
+<td>0.0</td>
+<td>0.1</td>
+<td>218.93</td>
+</tr>
+<tr class="row-odd"><td><span class="math">\(\ce{Basaluminite}\)</span></td>
+<td>0.0</td>
+<td>0.1</td>
+<td>29.0</td>
+</tr>
+<tr class="row-even"><td><span class="math">\(\ce{Opal}\)</span></td>
+<td>0.0</td>
+<td>0.1</td>
+<td>126.0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="results-and-comparison">
+<h2>Results and Comparison<a class="headerlink" href="#results-and-comparison" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="simulation-results">
+<h3>Simulation results<a class="headerlink" href="#simulation-results" title="Permalink to this headline">¶</a></h3>
+<p>(<a class="reference external" href="../../../benchmarking/chemistry/farea_1d/farea_1d.py">Source code</a>, <a class="reference external" href="../../../benchmarking/chemistry/farea_1d/farea_1d.png">png</a>, <a class="reference external" href="../../../benchmarking/chemistry/farea_1d/farea_1d.hires.png">hires.png</a>, <a class="reference external" href="../../../benchmarking/chemistry/farea_1d/farea_1d.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="../../../_images/farea_1d.png" src="../../../_images/farea_1d.png" />
+</div>
+</div>
+</div>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<table class="docutils citation" frame="void" id="bea2013" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[Bea2013]</td><td><em>(<a class="fn-backref" href="#id1">1</a>, <a class="fn-backref" href="#id3">2</a>)</em> Sergio A. Bea, Haruko Wainwright, Nicolas Spycher, Boris Faybishenko, Susan S. Hubbard, Miles E. Denham (2013) Identifying key controls on the behavior of an acidic-U(VI) plume in the Savannah River Site using reactive transport modeling, Journal of Contaminant Hydrology, 151:34-54.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="davis1998" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id5">[Davis1998]</a></td><td>Davis, J.A., J.A. Coston, D.B. Kent, and C. C. Fuller (1998). Application of the Surface Complexation Concept to Complex Mineral Assemblages, Environmental Science &amp; Technology, Vo. 32, No. 19, 2820-2828.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="freshley2012" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id4">[Freshley2012]</a></td><td>Freshley, M.S. Hubbard, et al. (2012) Advanced Simulation Capability for Environmental Management (ASCEM) Phase II Demonstration. ASCEM-SITE-2012-01; DOI 10.2172/1055500 <a class="reference external" href="http://www.osti.gov/bridge/product.biblio.jsp?query_id=1&amp;page=0&amp;osti_id=1055500">link</a></td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="guillaumont2003" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[Guillaumont2003]</td><td><em>(<a class="fn-backref" href="#id7">1</a>, <a class="fn-backref" href="#id10">2</a>)</em> Guillaumont, R., T. Fanghanel, J. Fuger, I. Grenthe, V. Neck, D.A. Palmer, and M. H. Rand.  (2003)  Update on the Chemical Thermodynamics of Uranium, Neptunium, Plutonium, Americium, and Technetium.  Chemical Thermodynamics 5, OECD Nuclear Energy Agency, etd., Elsevier, Amsterdam.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="pokrovskii-helgeson1995" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id11">[Pokrovskii-Helgeson1995]</a></td><td>Pokrovskii, V.A. and Helgeson, H.C. (1995) Thermodynamic properties of aqueous species and the solubilities of minerals at high pressures and temperatures: the system Al2O3 –H2O–NaCl., Am. J. Sci. 295, 1255–1342.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="millings2012" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[Millings2012]</a></td><td>M.R. Millings, B.B. Looney, M.E. Denham (2012) Geochemical modeling of F Area seepage basin composition and variability. <a class="reference external" href="http://sti.srs.gov/fulltext/SRNL-STI-2012-00269.pdf">pdf file</a></td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="nordstrom1982" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[Nordstrom1982]</td><td><em>(<a class="fn-backref" href="#id12">1</a>, <a class="fn-backref" href="#id13">2</a>)</em> Nordstrom, D.K. (1982) Aqueous pyrite oxidation and the consequent formation of secondary iron minerals. In Kittrick, J.A., Fanning, D.S. and Hossner, L.R. (eds.): Acid Sulfate Weathering. Soil Sci. Soc. Am. Publ.: 37—56.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="snl2007" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[SNL2007]</td><td><em>(<a class="fn-backref" href="#id6">1</a>, <a class="fn-backref" href="#id9">2</a>)</em> SNL (Sandia National Laboratories) (2007)  Qualification of thermodynamic data for geochemical modeling of mineral–water interactions in dilute systems (eds. Wolery T. J. and Jove Colon C. F.), Report ANL-WIS-GS-000003 REV 01. Las Vegas, Nevada: Sandia National Laboratories. ACC: DOC.20070619.0007.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="sonnenthal-spycher2000" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id14">[Sonnenthal-Spycher2000]</a></td><td>Sonnenthal, E., and Spycher, N.  (2000) Drift-scale coupled processes model, Analysis and model report (AMR) N0120/U0110, Yucca Mountain Nuclear Waste Disposal Project, Lawrence Berkeley National Laboratory, Berkeley, California.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="yangsteefel2008" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id8">[YangSteefel2008]</a></td><td>Yang, L. and C.I. Steefel. (2008) Kaolinite dissolution and precipitation kinetics at 22°C and pH 4. Geochimica Cosmochimica Acta 72(1), 99-116.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="about">
+<span id="about-farea"></span><h2>About<a class="headerlink" href="#about" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Benchmark simulator: PFlotran</li>
+<li>Files<ul>
+<li>Amanzi input file: amanzi-u-1d-farea.xml</li>
+<li>Benchmark simulator input file: 1d-farea.in</li>
+</ul>
+</li>
+<li>Location: testing/benchmarking/chemistry/farea_1d</li>
+<li>Author: B. Andre, G. Hammond</li>
+<li>Testing and Documentation: S. Molins, H.M. Wainright</li>
+<li>Last tested on: November 1, 2013</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../transport/index.html" title="Transport"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../ion_exchange_1d/amanzi_u-1d-ion-exchange.html" title="1D Ion exchange"
+             >previous</a> |</li>
+        <li><a href="../../../index.html">home</a>|&nbsp;</li>
+        <li><a href="../../../search.html">search</a>|&nbsp;</li>
+
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Benchmark Testing</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="../index.html" >Chemistry</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2016, Amanzi Development Team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.
+    </div>
+  </body>
+</html>

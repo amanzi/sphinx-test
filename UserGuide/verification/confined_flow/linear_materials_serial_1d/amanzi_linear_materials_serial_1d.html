@@ -1,0 +1,334 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Steady-State One-Dimensional Flow: Materials in Serial &mdash; Amanzi 0.86-dev documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.86-dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Amanzi 0.86-dev documentation" href="../../../index.html" />
+    <link rel="up" title="Confined Flow Tests" href="../index.html" />
+    <link rel="next" title="Steady-State One-Dimensional Flow: Materials in Parallel" href="../linear_materials_parallel_1d/amanzi_linear_materials_parallel_1d.html" />
+    <link rel="prev" title="Steady-State One-Dimensional Flow with Flux and Head Boundary Conditions" href="../linear_flux_head_1d/amanzi_linear_flux_head_1d.html" /> 
+ <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    TeX: {
+        extensions: ["mhchem.js"]
+    }
+  });
+</script>
+
+  </head>
+  <body role="document">
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<a href="../../../index.html"><img src="../../../_static/logo.png" border="0" alt="py4sci"/></a>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../linear_materials_parallel_1d/amanzi_linear_materials_parallel_1d.html" title="Steady-State One-Dimensional Flow: Materials in Parallel"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../linear_flux_head_1d/amanzi_linear_flux_head_1d.html" title="Steady-State One-Dimensional Flow with Flux and Head Boundary Conditions"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../../index.html">home</a>|&nbsp;</li>
+        <li><a href="../../../search.html">search</a>|&nbsp;</li>
+
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Verification Testing</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="../index.html" accesskey="U">Confined Flow Tests</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Steady-State One-Dimensional Flow: Materials in Serial</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#analytic-solution-for-prescribed-inlet-and-outlet-pressures">Analytic solution for prescribed inlet and outlet pressures</a></li>
+<li><a class="reference internal" href="#amanzi-verification-test-problem">Amanzi verification test problem</a></li>
+<li><a class="reference internal" href="#amanzi-verification-test-results">Amanzi verification test results</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../linear_flux_head_1d/amanzi_linear_flux_head_1d.html"
+                        title="previous chapter">Steady-State One-Dimensional Flow with Flux and Head Boundary Conditions</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../linear_materials_parallel_1d/amanzi_linear_materials_parallel_1d.html"
+                        title="next chapter">Steady-State One-Dimensional Flow: Materials in Parallel</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../../_sources/verification/confined_flow/linear_materials_serial_1d/amanzi_linear_materials_serial_1d.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="steady-state-one-dimensional-flow-materials-in-serial">
+<h1>Steady-State One-Dimensional Flow: Materials in Serial<a class="headerlink" href="#steady-state-one-dimensional-flow-materials-in-serial" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>For one-dimensional, steady-state, flow through a saturated porous medium with constant properties,
+the general governing differential equation expressing mass conservation and Darcy&#8217;s law becomes simply</p>
+<blockquote>
+<div><div class="math" id="equation-ode">
+<span class="eqno">(1)</span>\[\frac{d^2h}{dx^2} = 0\]</div>
+</div></blockquote>
+<p>where the total head (<span class="math">\(h\)</span>, [L]) is the sum of pressure head (<span class="math">\(P/\rho g\)</span>, [L])
+and elevation (<span class="math">\(z\)</span>, [L])</p>
+<blockquote>
+<div><div class="math">
+\[h = \frac{P}{\rho g}+z\]</div>
+</div></blockquote>
+<p><span class="math">\(\rho\)</span> = density [M/L<sup>3</sup>], <span class="math">\(g\)</span> = gravitational acceleration [L/T<sup>2</sup>],
+and <span class="math">\(x\)</span> = horizontal distance [L]. The ordinary differential equation <a href="#equation-ode">(1)</a> is easily solved by
+direct integration as</p>
+<blockquote>
+<div><div class="math" id="equation-generalSoln">
+<span class="eqno">(2)</span>\[h = C_1 x + C_2\]</div>
+</div></blockquote>
+<p>where the integration constants <span class="math">\(C_1\)</span> and <span class="math">\(C_2\)</span> depend on the boundary conditions.</p>
+<p>For a simple heterogeneous porous medium composed of two constant-property materials in series,
+Equation <a href="#equation-generalSoln">(2)</a> can be applied to each subregion separately
+with the interface conditions treated as boundary conditions for the two subregions. To analyze this
+special case, let the subscripts <em>1</em> and <em>2</em> denote the subregions adjoining the <span class="math">\(x = 0\)</span> and <span class="math">\(x = L\)</span>
+boundaries respectively, and the subscript <em>i</em> denote the interface.</p>
+</div>
+<div class="section" id="analytic-solution-for-prescribed-inlet-and-outlet-pressures">
+<h2>Analytic solution for prescribed inlet and outlet pressures<a class="headerlink" href="#analytic-solution-for-prescribed-inlet-and-outlet-pressures" title="Permalink to this headline">¶</a></h2>
+<p>When hydraulic head is prescribed at both boundaries as</p>
+<blockquote>
+<div><div class="math" id="equation-BCs">
+<span class="eqno">(3)</span>\[\begin{split}h(0) &amp;= h_0\\
+h(L) &amp;= h_L\end{split}\]</div>
+</div></blockquote>
+<p>the analytic solutions <a href="#equation-generalSoln">(2)</a> for hydraulic head in each subregion become</p>
+<blockquote>
+<div><div class="math" id="equation-specificSolns">
+<span class="eqno">(4)</span>\[\begin{split}h_1 &amp;= (h_i - h_0) \frac{x}{L_i} + h_0\\
+h_2 &amp;= (h_L - h_i) \frac{x-L_i}{L-L_i} + h_i\end{split}\]</div>
+</div></blockquote>
+<p>where <span class="math">\(L\)</span> = domain length [L], <span class="math">\(L_i\)</span> = position of interface [L], and <span class="math">\(h_i\)</span>
+is yet to be defined.
+The volumetric flowrate per unit area through a porous medium, or Darcy velocity (<span class="math">\(U\)</span>, [L/T]),
+is defined by Darcy&#8217;s law as</p>
+<blockquote>
+<div><div class="math" id="equation-DarcyVel">
+<span class="eqno">(5)</span>\[U = -\frac{k}{\mu\rho g}\frac{dh}{dx} = -K\frac{dh}{dx}\]</div>
+</div></blockquote>
+<p>where <span class="math">\(k\)</span> = intrinsic permeability [L<sup>2</sup>],
+<span class="math">\(\mu\)</span> = viscosity [M/LT], and
+<span class="math">\(K\)</span> = hydraulic conductivity [L/T].
+Applying Equation <a href="#equation-DarcyVel">(5)</a> to each subregion using Equations <a href="#equation-specificSolns">(4)</a> yields</p>
+<blockquote>
+<div><div class="math" id="equation-specificDarcyVels">
+<span class="eqno">(6)</span>\[\begin{split}U_1 &amp;= K_1\frac{h_0 - h_i}{L_i}\\
+U_2 &amp;= K_2\frac{h_i - h_L}{L-L_i}\\\end{split}\]</div>
+</div></blockquote>
+<p>Mass conservation at the interface implies <span class="math">\(U_1 = U_2\)</span>, which after some algebra leads to
+an expression for hydraulic head at the interface:</p>
+<blockquote>
+<div><div class="math" id="equation-interfaceHead">
+<span class="eqno">(7)</span>\[h_i = \frac{K_1(L-L_i)h_0+K_2L_ih_L}{K_1(L-L_i)+K_2L_i}\]</div>
+</div></blockquote>
+<p>Equations <a href="#equation-specificSolns">(4)</a> and <a href="#equation-interfaceHead">(7)</a> collectively define hydraulic head across the
+domain, and Equation <a href="#equation-specificDarcyVels">(6)</a> or <a href="#equation-interfaceHead">(7)</a> the Darcy velocity. One can also
+show that</p>
+<blockquote>
+<div><div class="math" id="equation-domainDarcyVel">
+<span class="eqno">(8)</span>\[U = K_h\frac{h_0 - h_L}{L}\]</div>
+</div></blockquote>
+<p>where <span class="math">\(K_h\)</span> is the harmonic mean</p>
+<blockquote>
+<div><div class="math" id="equation-harmonicMean">
+<span class="eqno">(9)</span>\[K_h = \frac{K_1K_2L}{K_1(L-L_i) + K_2L_i}\]</div>
+</div></blockquote>
+</div>
+<div class="section" id="amanzi-verification-test-problem">
+<h2>Amanzi verification test problem<a class="headerlink" href="#amanzi-verification-test-problem" title="Permalink to this headline">¶</a></h2>
+<p>The analytic solutions for hydraulic head and Darcy velocity can be used to test Amanzi
+implementation of prescribed hydraulic head boundary conditions, Darcy&#8217;s law, and mass conservation
+on an elementary problem with discrete heterogeneity.
+To generate numerical results the following specifications are considered:</p>
+<ul>
+<li><p class="first">Domain</p>
+<blockquote>
+<div><ul class="simple">
+<li><span class="math">\(x_{min} = y_{min} = z_{min} = 0\)</span></li>
+<li><span class="math">\(x_{max} = 100 m, y_{max} = 2 m, z_{max} = 10 m\)</span></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">Horizontal flow in the x-coordinate direction</p>
+<blockquote>
+<div><ul class="simple">
+<li>no-flow prescribed at the <span class="math">\(y_{min}, y_{max}, z_{min}, z_{max}\)</span> boundaries</li>
+<li>prescribed hydraulic head at the x-coordinate boundaries: <span class="math">\(h(0) = 20m, h(L) = 19m\)</span></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">Material properties:</p>
+<blockquote>
+<div><ul class="simple">
+<li><span class="math">\(\rho = 998.2 \: kg/m^3, \mu = 1.002e-3 \: Pa\cdot s, g = 9.807 \: m/s^2\)</span></li>
+<li><span class="math">\(L_i = x_{max}/2\)</span></li>
+<li><span class="math">\(K_1 = 1.0 m/d\)</span> <span class="math">\((k = 1.1847E-12 m^2)\)</span></li>
+<li><span class="math">\(K_2 = 10 m/d\)</span> <span class="math">\((k = 1.1847E-11 m^2)\)</span></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">Model discretization</p>
+<blockquote>
+<div><ul class="simple">
+<li><span class="math">\(\Delta x = 5 m, \Delta y = 2 m, \Delta z = 10 m\)</span></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>For these input specifications, Amanzi simulation output is expected to closely match</p>
+<blockquote>
+<div><div class="math" id="equation-expectedH_i">
+<span class="eqno">(10)</span>\[h_i = 19.090909m\]</div>
+</div></blockquote>
+<p>and exhibit a linear head profile within each subregion following Equations <a href="#equation-specificSolns">(4)</a>.
+The harmonic mean is <span class="math">\(1.818181818 m/d\)</span> from Equation <a href="#equation-harmonicMean">(9)</a> and thus the
+expected Darcy velocity is</p>
+<blockquote>
+<div><div class="math" id="equation-expectedU">
+<span class="eqno">(11)</span>\[U = 0.0181818 m/d\]</div>
+</div></blockquote>
+<p>from Equation <a href="#equation-domainDarcyVel">(8)</a>.</p>
+</div>
+<div class="section" id="amanzi-verification-test-results">
+<h2>Amanzi verification test results<a class="headerlink" href="#amanzi-verification-test-results" title="Permalink to this headline">¶</a></h2>
+<p>(<a class="reference external" href="../../../verification/confined_flow/linear_materials_serial_1d/amanzi_linear_materials_serial_1d.py">Source code</a>, <a class="reference external" href="../../../verification/confined_flow/linear_materials_serial_1d/amanzi_linear_materials_serial_1d.png">png</a>, <a class="reference external" href="../../../verification/confined_flow/linear_materials_serial_1d/amanzi_linear_materials_serial_1d.hires.png">hires.png</a>, <a class="reference external" href="../../../verification/confined_flow/linear_materials_serial_1d/amanzi_linear_materials_serial_1d.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="../../../_images/amanzi_linear_materials_serial_1d.png" src="../../../_images/amanzi_linear_materials_serial_1d.png" />
+</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="18%" />
+<col width="18%" />
+<col width="35%" />
+<col width="30%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>x [m]</td>
+<td>z [m]</td>
+<td>Analytic [m]</td>
+<td>Amanzi [m]</td>
+</tr>
+<tr class="row-even"><td>97.5</td>
+<td>5.0</td>
+<td>19.0045</td>
+<td>19.0045</td>
+</tr>
+<tr class="row-odd"><td>0.0</td>
+<td>5.0</td>
+<td>20.0000</td>
+<td>19.9545</td>
+</tr>
+<tr class="row-even"><td>100.0</td>
+<td>5.0</td>
+<td>19.0000</td>
+<td>19.0045</td>
+</tr>
+<tr class="row-odd"><td>47.5</td>
+<td>5.0</td>
+<td>19.1364</td>
+<td>19.1364</td>
+</tr>
+<tr class="row-even"><td>2.5</td>
+<td>5.0</td>
+<td>19.9545</td>
+<td>19.9545</td>
+</tr>
+<tr class="row-odd"><td>50.0</td>
+<td>5.0</td>
+<td>19.0909</td>
+<td>19.1114</td>
+</tr>
+<tr class="row-even"><td>52.5</td>
+<td>5.0</td>
+<td>19.0864</td>
+<td>19.0864</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../linear_materials_parallel_1d/amanzi_linear_materials_parallel_1d.html" title="Steady-State One-Dimensional Flow: Materials in Parallel"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../linear_flux_head_1d/amanzi_linear_flux_head_1d.html" title="Steady-State One-Dimensional Flow with Flux and Head Boundary Conditions"
+             >previous</a> |</li>
+        <li><a href="../../../index.html">home</a>|&nbsp;</li>
+        <li><a href="../../../search.html">search</a>|&nbsp;</li>
+
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Verification Testing</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="../index.html" >Confined Flow Tests</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2016, Amanzi Development Team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Confined Flow Tests &mdash; Amanzi 0.86-dev documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.86-dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Amanzi 0.86-dev documentation" href="../../index.html" />
+    <link rel="up" title="Verification Testing" href="../index.html" />
+    <link rel="next" title="Steady-State One-Dimensional Flow with Head Boundary Conditions" href="linear_head_head_1d/amanzi_linear_head_head_1d.html" />
+    <link rel="prev" title="Verification Testing" href="../index.html" /> 
+ <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    TeX: {
+        extensions: ["mhchem.js"]
+    }
+  });
+</script>
+
+  </head>
+  <body role="document">
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<a href="../../index.html"><img src="../../_static/logo.png" border="0" alt="py4sci"/></a>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="linear_head_head_1d/amanzi_linear_head_head_1d.html" title="Steady-State One-Dimensional Flow with Head Boundary Conditions"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../index.html" title="Verification Testing"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">home</a>|&nbsp;</li>
+        <li><a href="../../search.html">search</a>|&nbsp;</li>
+
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Verification Testing</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../index.html"
+                        title="previous chapter">Verification Testing</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="linear_head_head_1d/amanzi_linear_head_head_1d.html"
+                        title="next chapter">Steady-State One-Dimensional Flow with Head Boundary Conditions</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/verification/confined_flow/index.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="confined-flow-tests">
+<h1>Confined Flow Tests<a class="headerlink" href="#confined-flow-tests" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="linear_head_head_1d/amanzi_linear_head_head_1d.html">Steady-State One-Dimensional Flow with Head Boundary Conditions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="linear_head_head_1d/amanzi_linear_head_head_1d.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linear_head_head_1d/amanzi_linear_head_head_1d.html#analytic-solution-for-prescribed-inlet-and-outlet-pressures">Analytic solution for prescribed inlet and outlet pressures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linear_head_head_1d/amanzi_linear_head_head_1d.html#amanzi-verification-test-problem">Amanzi verification test problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linear_head_head_1d/amanzi_linear_head_head_1d.html#amanzi-verification-test-results">Amanzi verification test results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linear_head_head_1d/amanzi_linear_head_head_1d.html#fixme">FIXME:</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="linear_flux_head_1d/amanzi_linear_flux_head_1d.html">Steady-State One-Dimensional Flow with Flux and Head Boundary Conditions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="linear_flux_head_1d/amanzi_linear_flux_head_1d.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linear_flux_head_1d/amanzi_linear_flux_head_1d.html#analytic-solution-for-prescribed-inlet-flow-and-outlet-pressure">Analytic solution for prescribed inlet flow and outlet pressure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linear_flux_head_1d/amanzi_linear_flux_head_1d.html#amanzi-verification-test-problem">Amanzi verification test problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linear_flux_head_1d/amanzi_linear_flux_head_1d.html#amanzi-verification-test-results">Amanzi verification test results</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="linear_materials_serial_1d/amanzi_linear_materials_serial_1d.html">Steady-State One-Dimensional Flow: Materials in Serial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="linear_materials_serial_1d/amanzi_linear_materials_serial_1d.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linear_materials_serial_1d/amanzi_linear_materials_serial_1d.html#analytic-solution-for-prescribed-inlet-and-outlet-pressures">Analytic solution for prescribed inlet and outlet pressures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linear_materials_serial_1d/amanzi_linear_materials_serial_1d.html#amanzi-verification-test-problem">Amanzi verification test problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linear_materials_serial_1d/amanzi_linear_materials_serial_1d.html#amanzi-verification-test-results">Amanzi verification test results</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="linear_materials_parallel_1d/amanzi_linear_materials_parallel_1d.html">Steady-State One-Dimensional Flow: Materials in Parallel</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="linear_materials_parallel_1d/amanzi_linear_materials_parallel_1d.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linear_materials_parallel_1d/amanzi_linear_materials_parallel_1d.html#analytic-solution-for-prescribed-inlet-and-outlet-pressures">Analytic solution for prescribed inlet and outlet pressures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linear_materials_parallel_1d/amanzi_linear_materials_parallel_1d.html#amanzi-verification-test-problem">Amanzi verification test problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linear_materials_parallel_1d/amanzi_linear_materials_parallel_1d.html#amanzi-verification-test-results">Amanzi verification test results</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="theis_isotropic_1d/amanzi_theis_isotropic_1d.html">Transient One-Dimensional Confined Flow to a Pumping Well (Theis)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="theis_isotropic_1d/amanzi_theis_isotropic_1d.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="theis_isotropic_1d/amanzi_theis_isotropic_1d.html#model">Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="theis_isotropic_1d/amanzi_theis_isotropic_1d.html#plot-and-table-of-analytic-solution-and-amanzi-results">Plot and Table of Analytic Solution and Amanzi Results</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="butler_pod_2d/amanzi_butler_pod_2d.html">Transient Flow in a 2D Confined Aquifer with a Disc Embedded in A Matrix</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="butler_pod_2d/amanzi_butler_pod_2d.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="butler_pod_2d/amanzi_butler_pod_2d.html#model">Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="butler_pod_2d/amanzi_butler_pod_2d.html#problem-specification">Problem Specification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="butler_pod_2d/amanzi_butler_pod_2d.html#results-and-comparison">Results and Comparison</a></li>
+<li class="toctree-l2"><a class="reference internal" href="butler_pod_2d/amanzi_butler_pod_2d.html#references">References</a></li>
+<li class="toctree-l2"><a class="reference internal" href="butler_pod_2d/amanzi_butler_pod_2d.html#about">About</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="butler_strip_2d/amanzi_butler_strip_2d.html">Transient Flow in a 2D Confined Aquifer with a Linear Strip</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="butler_strip_2d/amanzi_butler_strip_2d.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="butler_strip_2d/amanzi_butler_strip_2d.html#problem-specification">Problem Specification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="butler_strip_2d/amanzi_butler_strip_2d.html#id2">Problem Specification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="butler_strip_2d/amanzi_butler_strip_2d.html#results-and-comparison">Results and Comparison</a></li>
+<li class="toctree-l2"><a class="reference internal" href="butler_strip_2d/amanzi_butler_strip_2d.html#references">References</a></li>
+<li class="toctree-l2"><a class="reference internal" href="butler_strip_2d/amanzi_butler_strip_2d.html#about">About</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hantush_anisotropic_2d/amanzi_hantush_anisotropic_2d.html">Transient Flow to a Pumping Well in an Anisotropic Aquifer (Hantush)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hantush_anisotropic_2d/amanzi_hantush_anisotropic_2d.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hantush_anisotropic_2d/amanzi_hantush_anisotropic_2d.html#schematic">Schematic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hantush_anisotropic_2d/amanzi_hantush_anisotropic_2d.html#comparison-of-analytic-solution-and-amanzi-results">Comparison of Analytic Solution and Amanzi Results</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="boundedDomain_2d/amanzi_boundedDomain_2d.html">Transient Drawdown due to Pumping Wells in a Bounded Domain</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="boundedDomain_2d/amanzi_boundedDomain_2d.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boundedDomain_2d/amanzi_boundedDomain_2d.html#problem-specification">Problem Specification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boundedDomain_2d/amanzi_boundedDomain_2d.html#id1">Problem Specification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boundedDomain_2d/amanzi_boundedDomain_2d.html#results-and-comparison">Results and Comparison</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boundedDomain_2d/amanzi_boundedDomain_2d.html#references">References</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boundedDomain_2d/amanzi_boundedDomain_2d.html#about">About</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="linear_head_head_1d/amanzi_linear_head_head_1d.html" title="Steady-State One-Dimensional Flow with Head Boundary Conditions"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../index.html" title="Verification Testing"
+             >previous</a> |</li>
+        <li><a href="../../index.html">home</a>|&nbsp;</li>
+        <li><a href="../../search.html">search</a>|&nbsp;</li>
+
+          <li class="nav-item nav-item-1"><a href="../index.html" >Verification Testing</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2016, Amanzi Development Team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.
+    </div>
+  </body>
+</html>

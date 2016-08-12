@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Transient Flow to a Pumping Well in an Anisotropic Aquifer (Hantush) &mdash; Amanzi 0.86-dev documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.86-dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Amanzi 0.86-dev documentation" href="../../../index.html" />
+    <link rel="up" title="Confined Flow Tests" href="../index.html" />
+    <link rel="next" title="Transient Drawdown due to Pumping Wells in a Bounded Domain" href="../boundedDomain_2d/amanzi_boundedDomain_2d.html" />
+    <link rel="prev" title="Transient Flow in a 2D Confined Aquifer with a Linear Strip" href="../butler_strip_2d/amanzi_butler_strip_2d.html" /> 
+ <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    TeX: {
+        extensions: ["mhchem.js"]
+    }
+  });
+</script>
+
+  </head>
+  <body role="document">
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<a href="../../../index.html"><img src="../../../_static/logo.png" border="0" alt="py4sci"/></a>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../boundedDomain_2d/amanzi_boundedDomain_2d.html" title="Transient Drawdown due to Pumping Wells in a Bounded Domain"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../butler_strip_2d/amanzi_butler_strip_2d.html" title="Transient Flow in a 2D Confined Aquifer with a Linear Strip"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../../index.html">home</a>|&nbsp;</li>
+        <li><a href="../../../search.html">search</a>|&nbsp;</li>
+
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Verification Testing</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="../index.html" accesskey="U">Confined Flow Tests</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Transient Flow to a Pumping Well in an Anisotropic Aquifer (Hantush)</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#schematic">Schematic</a></li>
+<li><a class="reference internal" href="#comparison-of-analytic-solution-and-amanzi-results">Comparison of Analytic Solution and Amanzi Results</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../butler_strip_2d/amanzi_butler_strip_2d.html"
+                        title="previous chapter">Transient Flow in a 2D Confined Aquifer with a Linear Strip</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../boundedDomain_2d/amanzi_boundedDomain_2d.html"
+                        title="next chapter">Transient Drawdown due to Pumping Wells in a Bounded Domain</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../../_sources/verification/confined_flow/hantush_anisotropic_2d/amanzi_hantush_anisotropic_2d.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="transient-flow-to-a-pumping-well-in-an-anisotropic-aquifer-hantush">
+<h1>Transient Flow to a Pumping Well in an Anisotropic Aquifer (Hantush)<a class="headerlink" href="#transient-flow-to-a-pumping-well-in-an-anisotropic-aquifer-hantush" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>Hantush and Thomas (1966) developed an analytical solution for measuring drawdown
+during constant discharge for a completely penetrating well in a
+homogenous anisotropic nonleaky infinite confined aquifer.  The
+soil permeabilty varies in the <em>x</em> and <em>y</em> directions thus anisotropic
+condictions exist. Hantush and Thomas simplifies to the Theis (1944) solution, which
+assumes isotropic soil profile, when the permeabilty is equal in all
+directions for all times. This solution will yield contour lines of
+equal draw down by an elliptical shape.</p>
+<div class="math">
+\[\frac{\partial }{\partial x} (T_x \frac{\partial h}{\partial x})+\frac{\partial }{\partial y} (T_y \frac{\partial h}{\partial y})
+= S \frac{\partial h}{\partial t} + Q \delta(x) \delta(y)\]</div>
+<p>The initial conditions is</p>
+<div class="math">
+\[h(x,y,0)=h_0\]</div>
+<p>Due to the varying hydraulic conductivities two transmissivities are
+defined as</p>
+<div class="math">
+\[T_x = K_xb \; \; and \;\; T_y=K_yb\]</div>
+<p>Hantush and Thomas found the solution to the governing equation as</p>
+<div class="math">
+\[s=h_0-h(r,t)=\frac{Q}{4 \pi \sqrt{T_x T_y}} \int_\phi^\infty
+\frac{exp[-\tau]}{\tau} d\tau = \frac{Q}{4 \pi \sqrt{T_x T_y}} \; W(\phi)\]</div>
+<p>where</p>
+<div class="math">
+\[\phi = \frac{(x^2T_t + y^2T_x)\;S}{4T_xT_yt}\]</div>
+<p>Notice when <span class="math">\(T_x=T_y\)</span>, <span class="math">\(\phi\)</span> is now equal to <em>u</em> and the
+problem simplifies to the <a class="reference internal" href="../theis_isotropic_1d/amanzi_theis_isotropic_1d.html#theis"><span class="std std-ref">Transient One-Dimensional Confined Flow to a Pumping Well (Theis)</span></a>.  The variables in
+the equations above are defined in <a class="reference internal" href="../theis_isotropic_1d/amanzi_theis_isotropic_1d.html#variables"><span class="std std-ref">Defining Variables</span></a> with subtle
+differences.  We have now defined transmissivity in two directions and
+redefined the well function, <em>W</em>, to apply to <span class="math">\(\phi\)</span> instead of
+<em>u</em>.  The integral is still solved as a negative exponential integral.</p>
+</div>
+<div class="section" id="schematic">
+<h2>Schematic<a class="headerlink" href="#schematic" title="Permalink to this headline">¶</a></h2>
+<img alt="../../../_images/ellipse.png" src="../../../_images/ellipse.png" />
+</div>
+<div class="section" id="comparison-of-analytic-solution-and-amanzi-results">
+<h2>Comparison of Analytic Solution and Amanzi Results<a class="headerlink" href="#comparison-of-analytic-solution-and-amanzi-results" title="Permalink to this headline">¶</a></h2>
+<p>(<a class="reference external" href="../../../verification/confined_flow/hantush_anisotropic_2d/amanzi_hantush_anisotropic_2d.py">Source code</a>, <a class="reference external" href="../../../verification/confined_flow/hantush_anisotropic_2d/amanzi_hantush_anisotropic_2d.png">png</a>, <a class="reference external" href="../../../verification/confined_flow/hantush_anisotropic_2d/amanzi_hantush_anisotropic_2d.hires.png">hires.png</a>, <a class="reference external" href="../../../verification/confined_flow/hantush_anisotropic_2d/amanzi_hantush_anisotropic_2d.pdf">pdf</a>)</p>
+<div class="figure align-center">
+<img alt="../../../_images/amanzi_hantush_anisotropic_2d.png" src="../../../_images/amanzi_hantush_anisotropic_2d.png" />
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../boundedDomain_2d/amanzi_boundedDomain_2d.html" title="Transient Drawdown due to Pumping Wells in a Bounded Domain"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../butler_strip_2d/amanzi_butler_strip_2d.html" title="Transient Flow in a 2D Confined Aquifer with a Linear Strip"
+             >previous</a> |</li>
+        <li><a href="../../../index.html">home</a>|&nbsp;</li>
+        <li><a href="../../../search.html">search</a>|&nbsp;</li>
+
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Verification Testing</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="../index.html" >Confined Flow Tests</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2016, Amanzi Development Team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,279 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Chemistry Models &mdash; Amanzi 0.86-dev documentation</title>
+    
+    <link rel="stylesheet" href="../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.86-dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Amanzi 0.86-dev documentation" href="../index.html" />
+    <link rel="up" title="Amanzi Process Capabilities" href="process.html" />
+    <link rel="next" title="Amanzi Input Description" href="../input/index.html" />
+    <link rel="prev" title="Transport Models" href="transport.html" /> 
+ <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    TeX: {
+        extensions: ["mhchem.js"]
+    }
+  });
+</script>
+
+  </head>
+  <body role="document">
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<a href="../index.html"><img src="../_static/logo.png" border="0" alt="py4sci"/></a>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../input/index.html" title="Amanzi Input Description"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="transport.html" title="Transport Models"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">home</a>|&nbsp;</li>
+        <li><a href="../search.html">search</a>|&nbsp;</li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >Amanzi Features and Capabilities</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="process.html" accesskey="U">Amanzi Process Capabilities</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Chemistry Models</a><ul>
+<li><a class="reference internal" href="#stoichiometry">Stoichiometry</a></li>
+<li><a class="reference internal" href="#geochemical-equilibrium">Geochemical Equilibrium</a></li>
+<li><a class="reference internal" href="#total-component-concentrations">Total Component Concentrations</a></li>
+<li><a class="reference internal" href="#transport-and-chemistry-coupling-operator-splitting-approach">Transport and Chemistry Coupling: Operator Splitting Approach</a></li>
+<li><a class="reference internal" href="#geochemical-kinetics">Geochemical Kinetics</a></li>
+<li><a class="reference internal" href="#geochemical-engines">Geochemical Engines</a></li>
+<li><a class="reference internal" href="#native-geochemistry">Native Geochemistry</a></li>
+<li><a class="reference internal" href="#alquimia-api">Alquimia API</a></li>
+<li><a class="reference internal" href="#references">References</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="transport.html"
+                        title="previous chapter">Transport Models</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../input/index.html"
+                        title="next chapter">Amanzi Input Description</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/capabilities/chemistry.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="chemistry-models">
+<h1>Chemistry Models<a class="headerlink" href="#chemistry-models" title="Permalink to this headline">¶</a></h1>
+<p>The chemistry component of Amanzi models a set of geochemical processes that lead to the transformation of reactant species to product species. Amanzi can simulate a comprehensive set of reaction types.  These reactions can be classified into <em>homogeneous</em> if they occur within the aqueous phase or <em>heterogeneous</em> if, in addition to the aqueous phase, they involve the solid phase. These reactions can also be classified into equilibrium or kinetic depending on whether local equilibrium can be assumed. The following table summarizes the reactions available by type.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="23%" />
+<col width="32%" />
+<col width="45%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><em>Reaction Types</em></td>
+<td>Homogeneous</td>
+<td>Heterogeneous</td>
+</tr>
+<tr class="row-even"><td>Equilibrium</td>
+<td><strong>Aqueous Complexation</strong></td>
+<td><strong>Surface Complexation</strong>,
+<strong>Ion Exchange</strong></td>
+</tr>
+<tr class="row-odd"><td>Kinetic</td>
+<td><strong>Aqueous Kinetics</strong></td>
+<td><strong>Mineral Dissolution-Precipitation</strong></td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="stoichiometry">
+<h2>Stoichiometry<a class="headerlink" href="#stoichiometry" title="Permalink to this headline">¶</a></h2>
+<p>The transformation from reactant to product species occurs according to a stoichiometric relationship. The stoichiometry of a generic reaction involving <span class="math">\(N_c\)</span> reactants (<span class="math">\(A_j\)</span>) and a product (<span class="math">\(A_i\)</span>) can be written as</p>
+<div class="math" id="equation-stoichiometry">
+<span class="eqno">(1)</span>\[\sum_{j=1}^{N_c} \nu_{ij}~A_j = A_i\]</div>
+<p>where <span class="math">\(\nu_{ij}\)</span> is the stoichiometric coefficients of reactant <em>j</em> in reaction <em>i</em>.</p>
+</div>
+<div class="section" id="geochemical-equilibrium">
+<h2>Geochemical Equilibrium<a class="headerlink" href="#geochemical-equilibrium" title="Permalink to this headline">¶</a></h2>
+<p>The local equilibrium assumption is applicable when reaction rates are much faster than transport rates, and therefore the relationship between the concentrations of products and reactants can be expressed with the law of mass action:</p>
+<div class="math" id="equation-equilibrium">
+<span class="eqno">(2)</span>\[\log(K_i) = \sum_{j=1}^{N_c}{\nu_{ij}~log(\gamma_j \cdot C_j)} - log(\gamma_i \cdot C_i)\]</div>
+<p>where <span class="math">\(K_i\)</span> is the equilibrium constant, <span class="math">\(C_i\)</span> and <span class="math">\(C_j\)</span> are the concentrations of reactant and product species, and <span class="math">\(\gamma_i\)</span> and <span class="math">\(\gamma_j\)</span> are the corresponding activity coefficients.</p>
+</div>
+<div class="section" id="total-component-concentrations">
+<h2>Total Component Concentrations<a class="headerlink" href="#total-component-concentrations" title="Permalink to this headline">¶</a></h2>
+<p>Geochemical equilibrium between aqueous species makes it possible to calculate the concentration of a set of secondary species as a function of a set of primary species. Further, one can define a set of components, one for each primary species, the mass of which are not affected by geochemical aqueous equilibrium reactions. The total mass of a component  (<span class="math">\(U_j\)</span>) is defined as the sum of the mass of a primary species and the mass of a number of secondary species multiplied by the corresponding stoichiometric coefficient:</p>
+<div class="math" id="equation-totalcomponent">
+<span class="eqno">(3)</span>\[U_j = C_j + \sum_{i=1}^{N_r}{\nu_{ij}~C_i}\]</div>
+<p>where <span class="math">\(N_r\)</span> is the number of aqueous equilibrium reactions.</p>
+<p>This approach is widely used in geochemical models (<a class="reference internal" href="#lichtner1985" id="id1">[Lichtner1985]</a>, <a class="reference internal" href="#yeh-tripathi1989" id="id2">[Yeh-Tripathi1989]</a>, <a class="reference internal" href="#steefel-lasaga1994" id="id3">[Steefel-Lasaga1994]</a>, <a class="reference internal" href="#steefel-macquarrie1996" id="id4">[Steefel-MacQuarrie1996]</a>) to reduce the size of the system to solve, and more specifically the number of transport equations.</p>
+</div>
+<div class="section" id="transport-and-chemistry-coupling-operator-splitting-approach">
+<h2>Transport and Chemistry Coupling: Operator Splitting Approach<a class="headerlink" href="#transport-and-chemistry-coupling-operator-splitting-approach" title="Permalink to this headline">¶</a></h2>
+<p>Amanzi uses the so-called Operator Spliting Aproach to couple transport and reaction processes <a class="reference internal" href="#yeh-tripathi1989" id="id5">[Yeh-Tripathi1989]</a>. In the operator splitting approach, transport and chemistry are solved sequentially over the same time step, first transport and then chemistry. One advantage of this approach is that transport equations can be solved using linear solvers. Additionally, the non-linear chemical equations can be solved on a cell-by-cell basis in what is an embarassingly parallel problem. To access these advantages, the transport solver does not operate on the concentrations of each reactant (<span class="math">\(C_j\)</span>) and product species (<span class="math">\(C_i\)</span>). Rather, transport operates on the total component concentrations (<span class="math">\(U_j\)</span>) as defined in eq. <a href="#equation-totalcomponent">(3)</a>. Please see <a class="reference internal" href="transport.html"><span class="doc">Transport Models</span></a> for details of the transport capabilities of Amanzi. Following transport, the chemical processes affecting the mass balance of all components are solved over the same timestep:</p>
+<div class="math" id="equation-operatorsplitting">
+<span class="eqno">(4)</span>\[\frac{\partial (\phi s_l U_j)}{\partial t}
+= r_j\]</div>
+<p>This set of equations is solved together with eqs. <a href="#equation-totalcomponent">(3)</a> and <a href="#equation-equilibrium">(2)</a> to know the concentration of the individual species, as well as with the equations that describe the kinetic reaction rates <span class="math">\(r_j\)</span> (see eq. <a href="#equation-kinetics">(5)</a> below).</p>
+</div>
+<div class="section" id="geochemical-kinetics">
+<h2>Geochemical Kinetics<a class="headerlink" href="#geochemical-kinetics" title="Permalink to this headline">¶</a></h2>
+<p>When local equilibrium cannot be assumed, reaction rates need to be calculated explicitly. The reaction rates are in general a non-linear function of concentrations of the geochemical species. Additionally, for heterogeneous reactions, the rates can be a function of material properties (symbolically: <span class="math">\(\Psi\)</span>), e.g. reactive surface area in the case of mineral dissolution-precipitation. The particular expression depends on the reaction type. For example, mathematical formulations include the transition state theory rate law for mineral dissolution-precipitation or a first order dependence on concentration for radioactive decay. For the sake of brevitiy, the rate expression for reaction <em>k</em> is provided here only as a generic function:</p>
+<div class="math" id="equation-kinetics">
+<span class="eqno">(5)</span>\[r_k = f(C_i,\Psi)\]</div>
+<p>The specific mathematical formulations employed for the rate expression depend on the geochemical engine. The choices for geochemical engines are discussed below.</p>
+</div>
+<div class="section" id="geochemical-engines">
+<h2>Geochemical Engines<a class="headerlink" href="#geochemical-engines" title="Permalink to this headline">¶</a></h2>
+<p>Taking advantage of the operator splitting approach, whereby transport and chemistry are solved sequentially, Amanzi offers a flexible approach to use geochemical engines. The objective of these geochemical engines is to solve the chemistry problem, i.e. equations <a href="#equation-operatorsplitting">(4)</a>, <a href="#equation-totalcomponent">(3)</a>, <a href="#equation-equilibrium">(2)</a> and <a href="#equation-kinetics">(5)</a>. These geochemical engines can be grouped into two groups:</p>
+<ul class="simple">
+<li>Amanzi&#8217;s native geochemical engine: a set of basic geochemical capabilites included in Amanzi.</li>
+<li>External geochemical engines: any existing geochemical code that is coupled to Amanzi through using the Alquimia API.</li>
+</ul>
+</div>
+<div class="section" id="native-geochemistry">
+<h2>Native Geochemistry<a class="headerlink" href="#native-geochemistry" title="Permalink to this headline">¶</a></h2>
+<p>The native geochemical engine implements in Amanzi the methods to solve the equations eqs. <a href="#equation-operatorsplitting">(4)</a>, <a href="#equation-totalcomponent">(3)</a>, <a href="#equation-equilibrium">(2)</a> and <a href="#equation-kinetics">(5)</a> for the types of reactions outlined above. Specifically for kinetic reactions, the following mathematical formulation are available for reaction rate expressions (<span class="math">\(r_k\)</span>)</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="29%" />
+<col width="23%" />
+<col width="48%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Kinetic Reaction Types</th>
+<th class="head">Rate Expression Type</th>
+<th class="head">Mathematical Formulation</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Mineral Dissolution-Precipitation</td>
+<td>Transition State Theory</td>
+<td><span class="math">\(r_k = k \times A_s \times (1 -Q/K_s)\)</span></td>
+</tr>
+<tr class="row-odd"><td>Aqueous Kinetics</td>
+<td>First order dependence</td>
+<td><span class="math">\(r_k = \lambda \times C_i\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>where <span class="math">\(k\)</span> and <span class="math">\(\lambda\)</span> are rate constants; <span class="math">\(A_s\)</span> is the reactive surface area of the mineral, a material property; <span class="math">\(Q\)</span> is the ion activity product; and <span class="math">\(K_s\)</span> is the solubility or equlibrium constant of the mineral reaction.</p>
+<p>The reaction network is specified through a its own geochemical database file (typically with extension .bgd) that is specific to the problem at hand. The total concentrations of all components (<span class="math">\(U_i\)</span>) are specified in the Amanzi input file.</p>
+<p>The reader is kindly directed to the <a class="reference internal" href="../benchmarking/chemistry/index.html#sec-benchmarks-chemistry"><span class="std std-ref">Benchmark Testing/Chemistry</span></a> section for examples.</p>
+</div>
+<div class="section" id="alquimia-api">
+<h2>Alquimia API<a class="headerlink" href="#alquimia-api" title="Permalink to this headline">¶</a></h2>
+<p>Alquimia is an Application Programming Interface (API) that exposes the functionality of a geochemical engine to Amanzi. Alquimia does not perform any geochemical calculations itself. The geochemical engine is responsible for all geochemical calculations, and must provide a wrapper library that exactly conforms to the Alquimia API. Thus, the geochemical capabilities of Amanzi when using the Alquimia interface will depend on the geochemical engine of choice. That means that they can provide Amanzi with those capabilities or specific formulation not available in the native geochemical engine.</p>
+<p>Currently, the geochemical capabilities of the reactive transport code PFloTran (<a class="reference external" href="http://ees.lanl.gov/pflotran/">http://ees.lanl.gov/pflotran/</a> and <a class="reference external" href="https://bitbucket.org/pflotran/pflotran-dev/wiki/Home">https://bitbucket.org/pflotran/pflotran-dev/wiki/Home</a>) are available within Amanzi through the Alquimia interface. These capabilities are described in the PFloTran&#8217;s documentation. Some examples are available in the Amanzi documentation (<a class="reference internal" href="../benchmarking/chemistry/index.html#sec-benchmarks-chemistry"><span class="std std-ref">Benchmark Testing/Chemistry</span></a>).</p>
+</div>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<table class="docutils citation" frame="void" id="lichtner1985" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[Lichtner1985]</a></td><td>Lichtner, P. (1985), Continuum model for simultaneous chemical-reactions and mass-transport in hydrothermal systems, Geochim. Cosmochim. Acta, 49(3), 779–800, doi:10.1016/0016-7037(85)90172-3.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="steefel-lasaga1994" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[Steefel-Lasaga1994]</a></td><td>Steefel, C. I., and A. C. Lasaga (1994), A coupled model for transport of Hydrothermal fluxes of major elements, Juan de Fuca flank 1755 multiple chemical species and kinetic precipitation/dissolution reactions with application to reactive flow in single phase hydrothermal systems, Am. J. Sci., 294, 529–592.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="steefel-macquarrie1996" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id4">[Steefel-MacQuarrie1996]</a></td><td>Steefel, C. I., and K. MacQuarrie (1996), Approaches to modeling of reactive transport in porous media, in Reactive Transport In Porous Media, Rev. in Min., vol. 34, edited by P. C. Lichtner, C. I. Steefel, and E. H. Oelkers, pp. 83–129, Min. Soc. Am., Washington, D.C.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="yeh-tripathi1989" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[Yeh-Tripathi1989]</td><td><em>(<a class="fn-backref" href="#id2">1</a>, <a class="fn-backref" href="#id5">2</a>)</em> Yeh, G. T., and V. S. Tripathi (1989), A critical evaluation of recent developments in hydrogeochemical transport models of reactive multichemical components, Water Resour. Res., 25, 93–108.</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../input/index.html" title="Amanzi Input Description"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="transport.html" title="Transport Models"
+             >previous</a> |</li>
+        <li><a href="../index.html">home</a>|&nbsp;</li>
+        <li><a href="../search.html">search</a>|&nbsp;</li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >Amanzi Features and Capabilities</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="process.html" >Amanzi Process Capabilities</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2016, Amanzi Development Team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.
+    </div>
+  </body>
+</html>

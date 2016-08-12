@@ -1,0 +1,262 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>1D Ion exchange &mdash; Amanzi 0.86-dev documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.86-dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Amanzi 0.86-dev documentation" href="../../../index.html" />
+    <link rel="up" title="Chemistry" href="../index.html" />
+    <link rel="next" title="1D F-Area Full Geochemistry" href="../farea_1d/amanzi_u-1d-farea.html" />
+    <link rel="prev" title="1D Sorption Isotherms" href="../isotherms_1d/amanzi_u-1d-isotherms.html" /> 
+ <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    TeX: {
+        extensions: ["mhchem.js"]
+    }
+  });
+</script>
+
+  </head>
+  <body role="document">
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<a href="../../../index.html"><img src="../../../_static/logo.png" border="0" alt="py4sci"/></a>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../farea_1d/amanzi_u-1d-farea.html" title="1D F-Area Full Geochemistry"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../isotherms_1d/amanzi_u-1d-isotherms.html" title="1D Sorption Isotherms"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../../index.html">home</a>|&nbsp;</li>
+        <li><a href="../../../search.html">search</a>|&nbsp;</li>
+
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Benchmark Testing</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="../index.html" accesskey="U">Chemistry</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">1D Ion exchange</a><ul>
+<li><a class="reference internal" href="#overview-and-capabilities-tested">Overview and Capabilities tested</a></li>
+<li><a class="reference internal" href="#background">Background</a></li>
+<li><a class="reference internal" href="#model">Model</a><ul>
+<li><a class="reference internal" href="#flow-and-transport">Flow and transport</a></li>
+<li><a class="reference internal" href="#primary-species">Primary species</a></li>
+<li><a class="reference internal" href="#ion-exchange">Ion exchange</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#problem-specifications">Problem specifications</a><ul>
+<li><a class="reference internal" href="#id1">Flow and transport</a></li>
+<li><a class="reference internal" href="#geochemistry">Geochemistry</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#results-and-comparison">Results and Comparison</a><ul>
+<li><a class="reference internal" href="#expected-results">Expected results</a></li>
+<li><a class="reference internal" href="#simulation-results">Simulation results</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#about">About</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../isotherms_1d/amanzi_u-1d-isotherms.html"
+                        title="previous chapter">1D Sorption Isotherms</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../farea_1d/amanzi_u-1d-farea.html"
+                        title="next chapter">1D F-Area Full Geochemistry</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../../_sources/benchmarking/chemistry/ion_exchange_1d/amanzi_u-1d-ion-exchange.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="d-ion-exchange">
+<h1>1D Ion exchange<a class="headerlink" href="#d-ion-exchange" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview-and-capabilities-tested">
+<h2>Overview and Capabilities tested<a class="headerlink" href="#overview-and-capabilities-tested" title="Permalink to this headline">¶</a></h2>
+<p>This test example performs the simulation of cation exchange on a single exchange site in a 1D flow domain, testing the following capabilities:</p>
+<ul>
+<li><p class="first">1D flow</p>
+</li>
+<li><p class="first">1D advective transport</p>
+</li>
+<li><p class="first">Geochemical reactions</p>
+<blockquote>
+<div><ul class="simple">
+<li>Ion exchange (equilibrium)</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>For details on this test, see <a class="reference internal" href="#about-ion-exchange"><span class="std std-ref">About</span></a>.</p>
+</div>
+<div class="section" id="background">
+<h2>Background<a class="headerlink" href="#background" title="Permalink to this headline">¶</a></h2>
+<p>Ion exchange description to come.</p>
+</div>
+<div class="section" id="model">
+<h2>Model<a class="headerlink" href="#model" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="flow-and-transport">
+<h3>Flow and transport<a class="headerlink" href="#flow-and-transport" title="Permalink to this headline">¶</a></h3>
+<p>See the <a class="reference internal" href="../tracer_1d/amanzi_u-1d-tracer.html"><span class="doc">1D Conservative tracer transport</span></a> example.</p>
+</div>
+<div class="section" id="primary-species">
+<h3>Primary species<a class="headerlink" href="#primary-species" title="Permalink to this headline">¶</a></h3>
+<p>Four primary species are used: 3 cations (
+<span class="math">\(\ce{Na^+}\)</span>
+,
+<span class="math">\(\ce{Ca^{2+}}\)</span>
+,
+<span class="math">\(\ce{Mg^{2+}}\)</span>
+)
+and 1 anion (
+<span class="math">\(\ce{Cl^-}\)</span>
+) to charge-balance the solution.</p>
+</div>
+<div class="section" id="ion-exchange">
+<h3>Ion exchange<a class="headerlink" href="#ion-exchange" title="Permalink to this headline">¶</a></h3>
+<p><span class="math">\(\ce{Na^+}\)</span>
+,
+<span class="math">\(\ce{Ca^{2+}}\)</span>
+,
+<span class="math">\(\ce{Mg^{2+}}\)</span>
+exchange on the single bulk site
+<span class="math">\(\ce{X^-}\)</span>
+. The three equilbrium exchange reactions are (by convention, secondary species are given in the left hand side, while primary species are in the right hand side):</p>
+<ul class="simple">
+<li><span class="math">\(\ce{NaX} = \ce{Na^+} + \ce{X^-}\)</span>,
+<span class="math">\(\text{ } \log(K)=1.0\)</span></li>
+<li><span class="math">\(\ce{CaX_2} = \ce{Ca^{2+}} + 2 \ce{X^-}\)</span>,
+<span class="math">\(\text{ } \log(K)=0.2953\)</span></li>
+<li><span class="math">\(\ce{MgX_2} = \ce{Mg^{2+}} + 2 \ce{X^-}\)</span>,
+<span class="math">\(\text{ } \log(K)=0.1666\)</span></li>
+</ul>
+</div>
+</div>
+<div class="section" id="problem-specifications">
+<h2>Problem specifications<a class="headerlink" href="#problem-specifications" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h3>Flow and transport<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>See the <a class="reference internal" href="../tracer_1d/amanzi_u-1d-tracer.html"><span class="doc">1D Conservative tracer transport</span></a> example. The simulation is run to 50 years.</p>
+</div>
+<div class="section" id="geochemistry">
+<h3>Geochemistry<a class="headerlink" href="#geochemistry" title="Permalink to this headline">¶</a></h3>
+<p>The cation exchange capacity (CEC) of the bulk site is 750.0 <span class="math">\(\text{ eq/m}^3\)</span>.</p>
+</div>
+</div>
+<div class="section" id="results-and-comparison">
+<h2>Results and Comparison<a class="headerlink" href="#results-and-comparison" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="expected-results">
+<h3>Expected results<a class="headerlink" href="#expected-results" title="Permalink to this headline">¶</a></h3>
+<p>Expected results to come.</p>
+</div>
+<div class="section" id="simulation-results">
+<h3>Simulation results<a class="headerlink" href="#simulation-results" title="Permalink to this headline">¶</a></h3>
+<p>The figure below shows both the aqueous and sorbed concentrations of <span class="math">\(\ce{Na^+}, \ce{Ca^+}, \ce{Mg^{2+}}, \ce{Cl^-}\)</span> along the flow direction at 50 years.</p>
+<p>(<a class="reference external" href="../../../benchmarking/chemistry/ion_exchange_1d/ion_exchange_1d.py">Source code</a>, <a class="reference external" href="../../../benchmarking/chemistry/ion_exchange_1d/ion_exchange_1d.png">png</a>, <a class="reference external" href="../../../benchmarking/chemistry/ion_exchange_1d/ion_exchange_1d.hires.png">hires.png</a>, <a class="reference external" href="../../../benchmarking/chemistry/ion_exchange_1d/ion_exchange_1d.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="../../../_images/ion_exchange_1d.png" src="../../../_images/ion_exchange_1d.png" />
+</div>
+</div>
+</div>
+<div class="section" id="about">
+<span id="about-ion-exchange"></span><h2>About<a class="headerlink" href="#about" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Benchmark simulator: PFlotran</li>
+<li>Files:<ul>
+<li>Amanzi input file/s (native chemistry):  amanzi-u-1d-ion-exchange.xml, ion-exchange.bgd</li>
+<li>Amanzi input file/s (Alquimia chemistry): amanzi-1d-ion-exchange-alq.xml, 1d-ion-exchange.in, ion-exchange.dat</li>
+<li>Benchmark simulator input file: 1d-ion-exchange.in, ion-exchange.dat</li>
+</ul>
+</li>
+<li>Location: testing/benchmarking/chemistry/ion_exchange_1d</li>
+<li>Author: B. Andre, G. Hammond</li>
+<li>Testing and Documentation: S. Molins</li>
+<li>Last tested on Oct 4, 2013</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../farea_1d/amanzi_u-1d-farea.html" title="1D F-Area Full Geochemistry"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../isotherms_1d/amanzi_u-1d-isotherms.html" title="1D Sorption Isotherms"
+             >previous</a> |</li>
+        <li><a href="../../../index.html">home</a>|&nbsp;</li>
+        <li><a href="../../../search.html">search</a>|&nbsp;</li>
+
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Benchmark Testing</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="../index.html" >Chemistry</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2016, Amanzi Development Team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.
+    </div>
+  </body>
+</html>

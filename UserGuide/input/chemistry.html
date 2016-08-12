@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Chemistry in Amanzi with Alquimia &mdash; Amanzi 0.86-dev documentation</title>
+    
+    <link rel="stylesheet" href="../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.86-dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Amanzi 0.86-dev documentation" href="../index.html" />
+    <link rel="up" title="Amanzi Input Description" href="index.html" />
+    <link rel="next" title="Building Amanzi" href="../install/index.html" />
+    <link rel="prev" title="Simulation Mesh" href="mesh.html" /> 
+ <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    TeX: {
+        extensions: ["mhchem.js"]
+    }
+  });
+</script>
+
+  </head>
+  <body role="document">
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<a href="../index.html"><img src="../_static/logo.png" border="0" alt="py4sci"/></a>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../install/index.html" title="Building Amanzi"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="mesh.html" title="Simulation Mesh"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">home</a>|&nbsp;</li>
+        <li><a href="../search.html">search</a>|&nbsp;</li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Amanzi Input Description</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Chemistry in Amanzi with Alquimia</a><ul>
+<li><a class="reference internal" href="#about-alquimia">About Alquimia:</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="mesh.html"
+                        title="previous chapter">Simulation Mesh</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../install/index.html"
+                        title="next chapter">Building Amanzi</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/input/chemistry.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="chemistry-in-amanzi-with-alquimia">
+<h1>Chemistry in Amanzi with Alquimia<a class="headerlink" href="#chemistry-in-amanzi-with-alquimia" title="Permalink to this headline">¶</a></h1>
+<p>Amanzi makes available through the Alquimia interface geochemical
+capabilities available in widely used geochemical codes.</p>
+<p>Currently, the geochemical capabilities of the reactive transport code PFLOTRAN
+(<a class="reference external" href="http://ees.lanl.gov/pflotran/">http://ees.lanl.gov/pflotran/</a> and <a class="reference external" href="https://bitbucket.org/pflotran/pflotran-dev/wiki/Home">https://bitbucket.org/pflotran/pflotran-dev/wiki/Home</a>)
+are available within Amanzi through the Alquimia interface. The specifications required
+for a PFLOTRAN input file are available in the PFLOTRAN User Manual
+(<a class="reference external" href="http://www.pflotran.org/docs/user_manual.pdf">http://www.pflotran.org/docs/user_manual.pdf</a>).</p>
+<p>In the near future, the geochemical capabilities of the reactive transport code CRUNCHFLOW
+(<a class="reference external" href="http://www.csteefel.com/CrunchFlowIntroduction.html">http://www.csteefel.com/CrunchFlowIntroduction.html</a>) are also going to available through the
+Alquimia interface. The User Manual for CrunchFlow can be found here:
+<a class="reference external" href="http://www.csteefel.com/CrunchFlowManual.pdf">http://www.csteefel.com/CrunchFlowManual.pdf</a>.</p>
+<p>For convenience, the user is kindly referred to the examples available in the Amanzi documentation
+(see <a class="reference internal" href="../benchmarking/chemistry/index.html"><span class="doc">Chemistry</span></a>), and the related input files available in the repository,
+for additional examples of input files for the different geochemical engines.</p>
+<div class="section" id="about-alquimia">
+<h2>About Alquimia:<a class="headerlink" href="#about-alquimia" title="Permalink to this headline">¶</a></h2>
+<p>Alquimia is a biogeochemistry API and wrapper library that provides a
+unified interface to the biogeochemistry routines from high quality
+reactive transport simulators such as PFLOTRAN or CrunchFlow,
+allowing any subsurface flow and transport simulator to access a range of functionality.</p>
+<p>The official repository for Alquimia API documentation and reference API is
+<a class="reference external" href="https://bitbucket.org/berkeleylab/alquimia">https://bitbucket.org/berkeleylab/alquimia</a>. The alquimia API is intended to be open and implemented
+by anyone. The reference implementation developed by Lawrence Berkeley National Laboratory is open</p>
+<blockquote>
+<div>source, licensed under a BSD License.</div></blockquote>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../install/index.html" title="Building Amanzi"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="mesh.html" title="Simulation Mesh"
+             >previous</a> |</li>
+        <li><a href="../index.html">home</a>|&nbsp;</li>
+        <li><a href="../search.html">search</a>|&nbsp;</li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >Amanzi Input Description</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2016, Amanzi Development Team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.
+    </div>
+  </body>
+</html>

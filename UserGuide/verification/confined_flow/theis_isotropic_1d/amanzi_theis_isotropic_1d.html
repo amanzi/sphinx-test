@@ -1,0 +1,360 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Transient One-Dimensional Confined Flow to a Pumping Well (Theis) &mdash; Amanzi 0.86-dev documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.86-dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Amanzi 0.86-dev documentation" href="../../../index.html" />
+    <link rel="up" title="Confined Flow Tests" href="../index.html" />
+    <link rel="next" title="Transient Flow in a 2D Confined Aquifer with a Disc Embedded in A Matrix" href="../butler_pod_2d/amanzi_butler_pod_2d.html" />
+    <link rel="prev" title="Steady-State One-Dimensional Flow: Materials in Parallel" href="../linear_materials_parallel_1d/amanzi_linear_materials_parallel_1d.html" /> 
+ <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    TeX: {
+        extensions: ["mhchem.js"]
+    }
+  });
+</script>
+
+  </head>
+  <body role="document">
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<a href="../../../index.html"><img src="../../../_static/logo.png" border="0" alt="py4sci"/></a>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../butler_pod_2d/amanzi_butler_pod_2d.html" title="Transient Flow in a 2D Confined Aquifer with a Disc Embedded in A Matrix"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../linear_materials_parallel_1d/amanzi_linear_materials_parallel_1d.html" title="Steady-State One-Dimensional Flow: Materials in Parallel"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../../index.html">home</a>|&nbsp;</li>
+        <li><a href="../../../search.html">search</a>|&nbsp;</li>
+
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Verification Testing</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="../index.html" accesskey="U">Confined Flow Tests</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Transient One-Dimensional Confined Flow to a Pumping Well (Theis)</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a><ul>
+<li><a class="reference internal" href="#schematic">Schematic</a></li>
+<li><a class="reference internal" href="#defining-variables">Defining Variables</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#model">Model</a></li>
+<li><a class="reference internal" href="#plot-and-table-of-analytic-solution-and-amanzi-results">Plot and Table of Analytic Solution and Amanzi Results</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../linear_materials_parallel_1d/amanzi_linear_materials_parallel_1d.html"
+                        title="previous chapter">Steady-State One-Dimensional Flow: Materials in Parallel</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../butler_pod_2d/amanzi_butler_pod_2d.html"
+                        title="next chapter">Transient Flow in a 2D Confined Aquifer with a Disc Embedded in A Matrix</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../../_sources/verification/confined_flow/theis_isotropic_1d/amanzi_theis_isotropic_1d.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="transient-one-dimensional-confined-flow-to-a-pumping-well-theis">
+<span id="theis"></span><h1>Transient One-Dimensional Confined Flow to a Pumping Well (Theis)<a class="headerlink" href="#transient-one-dimensional-confined-flow-to-a-pumping-well-theis" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>Theis (1935) developed an analytical solution for transient (non
+steady state) drawdown for a fully penetrating well by imposing the
+boundary conditions: <span class="math">\(h = h_0\)</span> for <span class="math">\(t = 0\)</span> and
+<span class="math">\(h \Rightarrow h_0\)</span> as <span class="math">\(r \Rightarrow \infty\)</span>.  The equation
+assumes an infinite and uniform confined aquifer.  When a well is
+pumped the water table declines toward the well and flow is induced
+toward the well from all directions. Theoretically, this flow can be
+idealized by purely radial symmetric flow and can be decribed by the
+equation below (this is analogous to heat flow by conduction developed
+by Fourier)</p>
+<div class="math">
+\[\frac{\partial^2 h}{\partial r^2}
++ \frac{1}{r} \frac{\partial h}{\partial r}
+= \frac{S}{T} \frac{\partial h}{\partial t}\]</div>
+<p>The analytical solution of drawdown as a function of time and distance
+is found to be:</p>
+<div class="math">
+\[s = h(r,0) - h(r,t) = \frac{Q W(u)}{4 \pi T}
+= \int_u^\infty \frac{exp[-\tau]}{\tau} d\tau = \frac{Q W(u)}{4\pi T}\]</div>
+<p>where,</p>
+<div class="math">
+\[u(r,t) = \frac{r^2 S}{4 T t}\]</div>
+<p>and the integral approximation for the well function, <em>W(u)</em>, for <span class="math">\(0 &lt; u &lt; 1\)</span> is</p>
+<div class="math">
+\[W(u) = -0.577 - log(u) + .99 u - 0.2499 u^2 +0.055 u^3 - 0.00976 u^4 +
+0.00108 u^5\]</div>
+<p>and for <span class="math">\(u \geq 1\)</span>,</p>
+<div class="math">
+\[W(u) =(\frac{exp[-u]}{u})  \frac{u^4 +8.57333 u^3  +18.05902
+u^2 + 8.63476 u +  0.26777}{u^4 + 9.57332 u^3 + 25.63296
+u^2 + 21.09965 u + 3.95850}\]</div>
+<p>Note, <span class="math">\(W(u)\)</span> can easily be determined from existing tables once
+<span class="math">\(u(r, t)\)</span> is found which is a measure of aquifer response time. For a
+given value of <em>t</em> one can construct a draw down curve with respect to
+the distance from the pumping well, <em>r</em>.</p>
+<div class="section" id="schematic">
+<h3>Schematic<a class="headerlink" href="#schematic" title="Permalink to this headline">¶</a></h3>
+<p>Note, the values in the schematic correlate to the values found in
+<a class="reference internal" href="#plot-table"><span class="std std-ref">Plot and Table of Analytic Solution and Amanzi Results</span></a>.</p>
+<div class="align-center figure" id="id1">
+<img alt="../../../_images/Theis.png" src="../../../_images/Theis.png" />
+<p class="caption"><span class="caption-text"><strong>Figure 1.2:  Illustration of transient drawdown</strong></span></p>
+</div>
+</div>
+<div class="section" id="defining-variables">
+<span id="variables"></span><h3>Defining Variables<a class="headerlink" href="#defining-variables" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><em>Q</em> constant pumping rate</li>
+<li><span class="math">\(h(r,0)\)</span> initial water table table height</li>
+<li><em>T</em> transmissivity</li>
+<li><em>W(u)</em> well function</li>
+<li><em>r</em> radial distnace measured outward from well</li>
+<li><em>S</em> storage coefficient</li>
+<li><em>t</em> duration of pumping time</li>
+</ul>
+</div>
+</div>
+<div class="section" id="model">
+<h2>Model<a class="headerlink" href="#model" title="Permalink to this headline">¶</a></h2>
+<p>Groundwater resource evaluation is crucial to understanding the
+concept of groundwater yield. This concept is vital because it helps
+determine the maximum allowable pump rate out of an aquifer and aid in
+the understanding of the consequnces on the water table.  For example,
+pumping water out of the water table (unconfined aquifer) may dry up
+near by wells due to the fall in the saturated thickness of the
+aquifer. This can be prevented by modeling the fall of the water table
+given a certain pumping rate.</p>
+<p>To apply the analysis developed by Theis, three parameters must be known:</p>
+<ul class="simple">
+<li><em>T</em>, transmissivity</li>
+<li><em>S</em>, storativity</li>
+<li><em>Q</em>, constant pumping rate</li>
+</ul>
+<p>Transimissivity of the aquifer is defined as</p>
+<div class="math">
+\[T = Kb\]</div>
+<p>where <span class="math">\(K\)</span> is the hydraulic conductivity of the aquifer and <span class="math">\(b\)</span> is the
+saturated thickness.  Transmissivity values greater than 0.015
+<span class="math">\(\frac{m^2}{s}\)</span> represent aquifers capable of well exploitation.
+Storativity is a dimensionless parameter that describes the amount of
+water released by the aquifer per unit volume of the aquifer.
+Storativity can be calculated using</p>
+<div class="math">
+\[S = S_s b\]</div>
+<p>where <span class="math">\(S_s\)</span> is the <em>specific storage</em> and is unique to each aquifer.
+Again, <span class="math">\(b\)</span> is the saturated thickness of the aquifer.  Specific
+storage represents the volume of water released per unit volume of the
+aquifer per unit decline in hydraulic head.</p>
+<p>Lastly, the constant pumping rate, <span class="math">\(Q\)</span>, is the volume of water
+discharged from the well per unit time.</p>
+</div>
+<div class="section" id="plot-and-table-of-analytic-solution-and-amanzi-results">
+<span id="plot-table"></span><h2>Plot and Table of Analytic Solution and Amanzi Results<a class="headerlink" href="#plot-and-table-of-analytic-solution-and-amanzi-results" title="Permalink to this headline">¶</a></h2>
+<p>(<a class="reference external" href="../../../verification/confined_flow/theis_isotropic_1d/amanzi_theis_isotropic_1d.py">Source code</a>, <a class="reference external" href="../../../verification/confined_flow/theis_isotropic_1d/amanzi_theis_isotropic_1d.png">png</a>, <a class="reference external" href="../../../verification/confined_flow/theis_isotropic_1d/amanzi_theis_isotropic_1d.hires.png">hires.png</a>, <a class="reference external" href="../../../verification/confined_flow/theis_isotropic_1d/amanzi_theis_isotropic_1d.pdf">pdf</a>)</p>
+<div class="figure align-center">
+<img alt="../../../_images/amanzi_theis_isotropic_1d.png" src="../../../_images/amanzi_theis_isotropic_1d.png" />
+</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="19%" />
+<col width="14%" />
+<col width="14%" />
+<col width="25%" />
+<col width="27%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>time [s]</td>
+<td>r [m]</td>
+<td>z [m]</td>
+<td>Analytic [m]</td>
+<td>Amanzi [m]</td>
+</tr>
+<tr class="row-even"><td>0.0</td>
+<td>55.0</td>
+<td>5.0</td>
+<td>0.0000000000</td>
+<td>-0.0000000003</td>
+</tr>
+<tr class="row-odd"><td>0.0864</td>
+<td>55.0</td>
+<td>5.0</td>
+<td>0.0000000000</td>
+<td>-0.0000000003</td>
+</tr>
+<tr class="row-even"><td>0.4</td>
+<td>55.0</td>
+<td>5.0</td>
+<td>0.0000000000</td>
+<td>-0.0000000003</td>
+</tr>
+<tr class="row-odd"><td>400.0</td>
+<td>55.0</td>
+<td>5.0</td>
+<td>0.0608385188</td>
+<td>0.0630004599</td>
+</tr>
+<tr class="row-even"><td>500.0</td>
+<td>55.0</td>
+<td>5.0</td>
+<td>0.0786216376</td>
+<td>0.0808630720</td>
+</tr>
+<tr class="row-odd"><td>600.0</td>
+<td>55.0</td>
+<td>5.0</td>
+<td>0.0947014814</td>
+<td>0.0969130036</td>
+</tr>
+<tr class="row-even"><td>5000.0</td>
+<td>55.0</td>
+<td>5.0</td>
+<td>0.3433506196</td>
+<td>0.3453518158</td>
+</tr>
+<tr class="row-odd"><td>8000.0</td>
+<td>55.0</td>
+<td>5.0</td>
+<td>0.4058889734</td>
+<td>0.4077189901</td>
+</tr>
+<tr class="row-even"><td>10000.0</td>
+<td>55.0</td>
+<td>5.0</td>
+<td>0.4359300429</td>
+<td>0.4379597337</td>
+</tr>
+<tr class="row-odd"><td>28000.0</td>
+<td>55.0</td>
+<td>5.0</td>
+<td>0.5762513445</td>
+<td>0.5779380452</td>
+</tr>
+<tr class="row-even"><td>35000.0</td>
+<td>55.0</td>
+<td>5.0</td>
+<td>0.6068911106</td>
+<td>0.6088327146</td>
+</tr>
+<tr class="row-odd"><td>43000.0</td>
+<td>55.0</td>
+<td>5.0</td>
+<td>0.6351997488</td>
+<td>0.6369781504</td>
+</tr>
+<tr class="row-even"><td>81000.0</td>
+<td>55.0</td>
+<td>5.0</td>
+<td>0.7224685054</td>
+<td>0.7241516217</td>
+</tr>
+<tr class="row-odd"><td>90000.0</td>
+<td>55.0</td>
+<td>5.0</td>
+<td>0.7370080987</td>
+<td>0.7384762578</td>
+</tr>
+<tr class="row-even"><td>100000.0</td>
+<td>55.0</td>
+<td>5.0</td>
+<td>0.7515518940</td>
+<td>0.7527292434</td>
+</tr>
+<tr class="row-odd"><td>164000.0</td>
+<td>55.0</td>
+<td>5.0</td>
+<td>0.8198837286</td>
+<td>0.8172510416</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../butler_pod_2d/amanzi_butler_pod_2d.html" title="Transient Flow in a 2D Confined Aquifer with a Disc Embedded in A Matrix"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../linear_materials_parallel_1d/amanzi_linear_materials_parallel_1d.html" title="Steady-State One-Dimensional Flow: Materials in Parallel"
+             >previous</a> |</li>
+        <li><a href="../../../index.html">home</a>|&nbsp;</li>
+        <li><a href="../../../search.html">search</a>|&nbsp;</li>
+
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Verification Testing</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="../index.html" >Confined Flow Tests</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2016, Amanzi Development Team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Quickstart Using Bootstrap &mdash; Amanzi 0.86-dev documentation</title>
+    
+    <link rel="stylesheet" href="../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.86-dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Amanzi 0.86-dev documentation" href="../index.html" />
+    <link rel="up" title="Building Amanzi" href="index.html" />
+    <link rel="next" title="Amanzi Third Party Library (TPL) Build System" href="building_tpls.html" />
+    <link rel="prev" title="Building Amanzi" href="index.html" /> 
+ <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    TeX: {
+        extensions: ["mhchem.js"]
+    }
+  });
+</script>
+
+  </head>
+  <body role="document">
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<a href="../index.html"><img src="../_static/logo.png" border="0" alt="py4sci"/></a>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="building_tpls.html" title="Amanzi Third Party Library (TPL) Build System"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Building Amanzi"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">home</a>|&nbsp;</li>
+        <li><a href="../search.html">search</a>|&nbsp;</li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Building Amanzi</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Quickstart Using Bootstrap</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#bootstrap-sh-execution">Bootstrap.sh Execution</a><ul>
+<li><a class="reference internal" href="#building-tpls-and-amanzi">Building TPLs and Amanzi</a></li>
+<li><a class="reference internal" href="#building-amanzi-only">Building Amanzi Only</a></li>
+<li><a class="reference internal" href="#example-bootstrap-sh-command-line">Example <code class="docutils literal"><span class="pre">bootstrap.sh</span></code> Command Line</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Building Amanzi</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="building_tpls.html"
+                        title="next chapter">Amanzi Third Party Library (TPL) Build System</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/install/building_bootstrap.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="quickstart-using-bootstrap">
+<span id="bootstrap"></span><h1>Quickstart Using Bootstrap<a class="headerlink" href="#quickstart-using-bootstrap" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>The Amanzi code is built using several required and optional Third Party Libraries (TPLs).  The script <code class="docutils literal"><span class="pre">bootstrap.sh</span></code> located in the <code class="docutils literal"><span class="pre">config</span></code> directory is designed to build most of the TPLs and the Amanzi source code on most UNIX-like OS (including Mac OSX).  It will also execute the included test suite.  A full set of options and defaults using <code class="docutils literal"><span class="pre">&lt;amanzi</span> <span class="pre">source</span> <span class="pre">root&gt;/config/bootstrap.sh</span> <span class="pre">--help</span></code>.</p>
+<p>The following pacakges are required before executing <code class="docutils literal"><span class="pre">bootstrap.sh</span></code></p>
+<blockquote>
+<div><ul class="simple">
+<li>A recent and stable GCC or Intel compiler. We have successfully built with
+GNU versions 4.4, 4.5 and 4.6, and Intel versions 11 and 12. There
+are known issues with GCC 4.7.</li>
+<li>Mercurial version 0.98 or higher.</li>
+<li>OpenSSL (required to build CURL) installation. This is available on
+most UNIX flavored systems and Macs.</li>
+<li>BLAS/LAPACK built and tuned to the target architecture. See the
+Trilinos Configuration section for more information.</li>
+<li>A location to install all the TPLs. The entire software stack
+will be installed in directories rooted to this directory. Since the
+download&#8211;patch-build-install cycle for each TPL is tied to a single
+target, the user must have read and write permission for this location.</li>
+<li>The build directory will need approximately 2.1 Gb of space and the
+install directory tree requires 300 Mb.</li>
+</ul>
+</div></blockquote>
+<p>The Amanzi build system utilizes CMake (version 2.8.8 or higher).  If <code class="docutils literal"><span class="pre">boostrap.sh</span></code> does not find the cmake executable, it will download and install CMake 2.8.8.</p>
+<p>Amanzi is a parallel project; therefore, a working MPI installation is required.  MPI installation directory and compiler wrapper locations can be specified through <code class="docutils literal"><span class="pre">bootstrap.sh</span></code> options.  If the MPI location is not specified the script will search common locations.  If working mpi wrappers are not found, the script will download and install OpenMPI 1.4.4.  See the <a class="reference internal" href="building_tpls.html#mpi"><span class="std std-ref">Obtaining MPI</span></a> section on how to obtain and install other mpi implementations.</p>
+<p>At this time, the script does not build compilers, <code class="docutils literal"><span class="pre">LAPACK</span></code>, or <code class="docutils literal"><span class="pre">BLAS</span></code>.  See the <a class="reference internal" href="building_tpls.html#compilers"><span class="std std-ref">Obtaining A Supported Compiler</span></a> section on how to obtaion a supported compiler and the <a class="reference internal" href="building_tpls.html#lapack"><span class="std std-ref">Obtaining LAPACK/BLAS</span></a> section for <code class="docutils literal"><span class="pre">LAPACK</span></code> and <code class="docutils literal"><span class="pre">BLAS</span></code> suggestions.</p>
+</div>
+<div class="section" id="bootstrap-sh-execution">
+<h2>Bootstrap.sh Execution<a class="headerlink" href="#bootstrap-sh-execution" title="Permalink to this headline">¶</a></h2>
+<p>After obtaining the Amanzi source code, the TPLs and source can be built utilizing the script <code class="docutils literal"><span class="pre">bootstrap.sh</span></code> located in <code class="docutils literal"><span class="pre">&lt;amanzi</span> <span class="pre">source</span> <span class="pre">root&gt;/config/</span></code>.  The script will create two directories in the current working directory.  The first is <code class="docutils literal"><span class="pre">TPL_BUILD</span></code> for downloading and building the TPLs.  The second is <code class="docutils literal"><span class="pre">amanzi-build</span></code>, where the Amanzi source code will be built and the test suite executed, if enabled.  The TPLs and Amanzi will be installed in the location specified by the option <code class="docutils literal"><span class="pre">--prefix</span></code>, $HOME/amanzi by default.  All options and defaults can be printed using the <code class="docutils literal"><span class="pre">--help</span></code> option.</p>
+<div class="section" id="building-tpls-and-amanzi">
+<h3>Building TPLs and Amanzi<a class="headerlink" href="#building-tpls-and-amanzi" title="Permalink to this headline">¶</a></h3>
+<p>Choose a location to build the TPLs and Amanzi.  From that location execute <code class="docutils literal"><span class="pre">&lt;amanzi</span> <span class="pre">source</span> <span class="pre">root&gt;/config/bootstrap.sh</span></code>.  The full list of options and defaults is printed using the <code class="docutils literal"><span class="pre">--help</span></code> option.</p>
+<p>Below are a selection of common and useful options.</p>
+<p>Specify TPL and Amanzi installation directory:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">--</span><span class="n">prefix</span><span class="o">=&lt;</span><span class="n">install</span> <span class="nb">dir</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Specify MPI install location:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">mpi</span><span class="o">=&lt;</span><span class="n">mpi</span> <span class="n">install</span> <span class="nb">dir</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Specify MPI compilers:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">c</span><span class="o">-</span><span class="n">compiler</span><span class="o">=&lt;</span><span class="n">mpi</span> <span class="n">install</span> <span class="nb">dir</span><span class="o">&gt;/</span><span class="nb">bin</span><span class="o">/</span><span class="n">mpicc</span>
+<span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">cxx</span><span class="o">-</span><span class="n">compiler</span><span class="o">=&lt;</span><span class="n">mpi</span> <span class="n">install</span> <span class="nb">dir</span><span class="o">&gt;/</span><span class="nb">bin</span><span class="o">/</span><span class="n">mpicxx</span>
+<span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">fort</span><span class="o">-</span><span class="n">compiler</span><span class="o">=&lt;</span><span class="n">mpi</span> <span class="n">install</span> <span class="nb">dir</span><span class="o">&gt;/</span><span class="nb">bin</span><span class="o">/</span><span class="n">mpif90</span>
+</pre></div>
+</div>
+<p>Specify processor count for parallel building:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">--</span><span class="n">parallel</span><span class="o">=</span><span class="n">n</span>
+</pre></div>
+</div>
+<p>Enable/Disable capabilities, mesh toolkits, and the test suite:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">--</span><span class="n">enable</span><span class="o">-</span><span class="n">structured</span> <span class="ow">or</span> <span class="n">disable</span><span class="o">-</span><span class="n">structured</span>
+<span class="o">--</span><span class="n">enable</span><span class="o">-</span><span class="n">unstructured</span> <span class="ow">or</span> <span class="n">disable</span><span class="o">-</span><span class="n">unstructured</span>
+<span class="o">--</span><span class="n">enable</span><span class="o">-</span><span class="n">stk_mesh</span>
+</pre></div>
+</div>
+<p>Disabling the test suite is recommended on HPC clusters.  The test suite can be manually run on commute nodes using <code class="docutils literal"><span class="pre">make</span> <span class="pre">test</span></code> in the <code class="docutils literal"><span class="pre">amanzi-build</span></code> directory.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">--</span><span class="n">disable</span><span class="o">-</span><span class="n">test_suite</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="building-amanzi-only">
+<h3>Building Amanzi Only<a class="headerlink" href="#building-amanzi-only" title="Permalink to this headline">¶</a></h3>
+<p>TPLs are updated less frequently than the Amanzi source code.  Therefore, users may wish to build Amanzi without rebuilding the TPLs.  The <code class="docutils literal"><span class="pre">bootstrap.sh</span></code> script installs the CMake configuration file in the install directory under tpls/share/cmake.  To skip rebuilding the TPLs use the following option.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">--</span><span class="n">tpl</span><span class="o">-</span><span class="n">config</span><span class="o">-</span><span class="n">file</span><span class="o">=&lt;</span><span class="n">install</span> <span class="nb">dir</span><span class="o">&gt;/</span><span class="n">tpls</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">cmake</span><span class="o">/</span><span class="n">amanzi</span><span class="o">-</span><span class="n">tpl</span><span class="o">-</span><span class="n">config</span><span class="o">.</span><span class="n">cmake</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="example-bootstrap-sh-command-line">
+<h3>Example <code class="docutils literal"><span class="pre">bootstrap.sh</span></code> Command Line<a class="headerlink" href="#example-bootstrap-sh-command-line" title="Permalink to this headline">¶</a></h3>
+<p>The following example command line is from a Mac OS X system using openmpi installed through MacPorts:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sh</span> <span class="o">&lt;</span><span class="n">amanzi_source_path</span><span class="o">&gt;/</span><span class="n">config</span><span class="o">/</span><span class="n">bootstrap</span><span class="o">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">parallel</span><span class="o">=</span><span class="mi">4</span> \
+                                            <span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">c</span><span class="o">-</span><span class="n">compiler</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">openmpicc</span> \
+                                            <span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">cxx</span><span class="o">-</span><span class="n">compiler</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">openmpicxx</span> \
+                                            <span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">fort</span><span class="o">-</span><span class="n">compiler</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">openmpif90</span> \
+                                            <span class="o">--</span><span class="n">prefix</span><span class="o">=&lt;</span><span class="n">ascem_path</span><span class="o">&gt;/</span><span class="n">install</span> \
+                                            <span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">cmake</span><span class="o">=/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">cmake</span> \
+                                            <span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">mpi</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">local</span> \
+                                            <span class="o">--</span><span class="n">enable</span><span class="o">-</span><span class="n">test_suite</span> \
+                                            <span class="o">--</span><span class="n">enable</span><span class="o">-</span><span class="n">petsc</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="building_tpls.html" title="Amanzi Third Party Library (TPL) Build System"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Building Amanzi"
+             >previous</a> |</li>
+        <li><a href="../index.html">home</a>|&nbsp;</li>
+        <li><a href="../search.html">search</a>|&nbsp;</li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >Building Amanzi</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2016, Amanzi Development Team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.
+    </div>
+  </body>
+</html>

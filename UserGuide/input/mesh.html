@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Simulation Mesh &mdash; Amanzi 0.86-dev documentation</title>
+    
+    <link rel="stylesheet" href="../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.86-dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Amanzi 0.86-dev documentation" href="../index.html" />
+    <link rel="up" title="Amanzi Input Description" href="index.html" />
+    <link rel="next" title="Chemistry in Amanzi with Alquimia" href="chemistry.html" />
+    <link rel="prev" title="Input File XML Schema" href="input_schema.html" /> 
+ <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    TeX: {
+        extensions: ["mhchem.js"]
+    }
+  });
+</script>
+
+  </head>
+  <body role="document">
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<a href="../index.html"><img src="../_static/logo.png" border="0" alt="py4sci"/></a>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="chemistry.html" title="Chemistry in Amanzi with Alquimia"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="input_schema.html" title="Input File XML Schema"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">home</a>|&nbsp;</li>
+        <li><a href="../search.html">search</a>|&nbsp;</li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Amanzi Input Description</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="input_schema.html"
+                        title="previous chapter">Input File XML Schema</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="chemistry.html"
+                        title="next chapter">Chemistry in Amanzi with Alquimia</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/input/mesh.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="simulation-mesh">
+<h1>Simulation Mesh<a class="headerlink" href="#simulation-mesh" title="Permalink to this headline">¶</a></h1>
+<p>When running <em>Amanzi</em> in the structured mode, the mesh is generated internally
+and the user is not required to specify it explicitly.</p>
+<p>When running <em>Amanzi</em> in the unstructured mode, it is possible to ask
+<em>Amanzi</em> to internally generate the mesh or read a mesh that is generated
+by an external tool like <a class="reference external" href="http://lagrit.lanl.gov">LaGriT</a> and written out
+in the <a class="reference external" href="http://sourceforge.net/projects/exodusii/">Exodus II</a> format.</p>
+<p>If the mesh is internally generated and the simulation is being run on
+multiple cores, the mesh will automatically be distributed over the
+multiple processors.</p>
+<p>If the mesh is externally generated and the simulation is on multiple
+cores, then the user has two options for distributing the mesh across
+processors.  In the first option, the complete mesh exists in a single
+<em>Exodus II</em> file which is read in, partitioned and distributed to the
+various processors. The input file must have an extension of <em>.exo</em>
+for this option. The second option is to prepartition the mesh on disk
+using the <em>splitexo</em> script under the <em>bin</em> directory of the <em>Amanzi</em>
+tree into files and letting <em>Amanzi</em> read each one in one processor
+(<em>Nemesis I</em> files are <em>Exodus II</em> files with extra information
+allowing them to be used in a parallel setting). To specify a
+prepartitioned file in the <em>Nemesis I</em> format, users must specify the
+filename with a <em>.exo</em> or <em>.par</em> extension. No processor or partition
+number needs to be specified even though the files on disk have a
+processor suffix. Thus, a serial mesh might be specified as
+<em>mymesh.exo</em> while a mesh partitioned into four parts, <em>mymesh.par.0</em>,
+<em>mymesh.par.1</em>, <em>mymesh.par.2</em>, <em>mymesh.par.2</em> would be specified as
+<em>mymesh.exo</em> or <em>mymesh.par</em>.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="chemistry.html" title="Chemistry in Amanzi with Alquimia"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="input_schema.html" title="Input File XML Schema"
+             >previous</a> |</li>
+        <li><a href="../index.html">home</a>|&nbsp;</li>
+        <li><a href="../search.html">search</a>|&nbsp;</li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >Amanzi Input Description</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2016, Amanzi Development Team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.
+    </div>
+  </body>
+</html>

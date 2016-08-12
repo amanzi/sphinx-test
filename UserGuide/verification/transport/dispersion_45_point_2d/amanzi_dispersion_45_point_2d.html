@@ -1,0 +1,306 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>2D Dispersive Transport in a Uniform Flow Field (diagonal) &mdash; Amanzi 0.86-dev documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.86-dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Amanzi 0.86-dev documentation" href="../../../index.html" />
+    <link rel="up" title="Transport of Solutes: Advection, Dispersion and Diffusion" href="../index.html" />
+    <link rel="next" title="Benchmark Testing" href="../../../benchmarking/index.html" />
+    <link rel="prev" title="2D Dispersive Transport in a Uniform Flow Field (aligned)" href="../dispersion_aligned_point_2d/amanzi_dispersion_aligned_point_2d.html" /> 
+ <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    TeX: {
+        extensions: ["mhchem.js"]
+    }
+  });
+</script>
+
+  </head>
+  <body role="document">
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<a href="../../../index.html"><img src="../../../_static/logo.png" border="0" alt="py4sci"/></a>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../benchmarking/index.html" title="Benchmark Testing"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../dispersion_aligned_point_2d/amanzi_dispersion_aligned_point_2d.html" title="2D Dispersive Transport in a Uniform Flow Field (aligned)"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../../index.html">home</a>|&nbsp;</li>
+        <li><a href="../../../search.html">search</a>|&nbsp;</li>
+
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Verification Testing</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="../index.html" accesskey="U">Transport of Solutes: Advection, Dispersion and Diffusion</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">2D Dispersive Transport in a Uniform Flow Field (diagonal)</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#defining-variables">Defining Variables</a></li>
+<li><a class="reference internal" href="#results-and-comparison">Results and Comparison</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../dispersion_aligned_point_2d/amanzi_dispersion_aligned_point_2d.html"
+                        title="previous chapter">2D Dispersive Transport in a Uniform Flow Field (aligned)</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../../../benchmarking/index.html"
+                        title="next chapter">Benchmark Testing</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../../_sources/verification/transport/dispersion_45_point_2d/amanzi_dispersion_45_point_2d.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="d-dispersive-transport-in-a-uniform-flow-field-diagonal">
+<h1>2D Dispersive Transport in a Uniform Flow Field (diagonal)<a class="headerlink" href="#d-dispersive-transport-in-a-uniform-flow-field-diagonal" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>This test problem is a slight modification of the previous test,
+the direction of the velocity field is rotated by <span class="math">\(45^\circ\)</span>
+counter clockwise with respect to the mesh.</p>
+</div>
+<div class="section" id="defining-variables">
+<h2>Defining Variables<a class="headerlink" href="#defining-variables" title="Permalink to this headline">¶</a></h2>
+<p>The background mesh consists of square cells with size <span class="math">\(H=15\)</span> m.
+It has 83 grid cells in the x-direction and 37 grid cells in the y-direction.
+The mesh is gradually refined toward the source such that the well is
+represented by a square cell of <span class="math">\(h=0.46875\)</span> [m] (<span class="math">\(h = H/32\)</span>).
+The mesh refinement adds 8.4% more cells.</p>
+<div class="align-center figure" id="id1">
+<img alt="../../../_images/mesh.png" src="../../../_images/mesh.png" />
+<p class="caption"><span class="caption-text"><strong>Computational mesh with 7468 cells.</strong></span></p>
+</div>
+</div>
+<div class="section" id="results-and-comparison">
+<h2>Results and Comparison<a class="headerlink" href="#results-and-comparison" title="Permalink to this headline">¶</a></h2>
+<p>The plume structure is characterized by three line cuts.
+The first cut is given by line <span class="math">\(y=0\)</span> that goes through the well.
+The two other cuts are given by lines <span class="math">\(x=0\)</span> and <span class="math">\(x=424\)</span>.</p>
+<p>(<a class="reference external" href="../../../verification/transport/dispersion_45_point_2d/amanzi_dispersion_45_point_2d-a.py">Source code</a>, <a class="reference external" href="../../../verification/transport/dispersion_45_point_2d/amanzi_dispersion_45_point_2d-a.png">png</a>, <a class="reference external" href="../../../verification/transport/dispersion_45_point_2d/amanzi_dispersion_45_point_2d-a.hires.png">hires.png</a>, <a class="reference external" href="../../../verification/transport/dispersion_45_point_2d/amanzi_dispersion_45_point_2d-a.pdf">pdf</a>)</p>
+<div class="figure align-center">
+<img alt="../../../_images/amanzi_dispersion_45_point_2d-a.png" src="../../../_images/amanzi_dispersion_45_point_2d-a.png" />
+</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="16%" />
+<col width="29%" />
+<col width="27%" />
+<col width="28%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">x [m]</th>
+<th class="head">Analytic (AT123D-AT)</th>
+<th class="head">Amanzi First-Order</th>
+<th class="head">Amanzi Second-Order</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>-296.98</td>
+<td>2.938459E-10</td>
+<td>3.50226e-09</td>
+<td>9.59948e-10</td>
+</tr>
+<tr class="row-odd"><td>-212.13</td>
+<td>1.880539E-08</td>
+<td>7.04817e-08</td>
+<td>2.72697e-08</td>
+</tr>
+<tr class="row-even"><td>-127.28</td>
+<td>0.129059E-05</td>
+<td>1.43855e-06</td>
+<td>7.77112e-07</td>
+</tr>
+<tr class="row-odd"><td>-42.43</td>
+<td>0.113739E-03</td>
+<td>5.13935e-05</td>
+<td>4.61270e-05</td>
+</tr>
+<tr class="row-even"><td>0.00</td>
+<td>0.377547E-02</td>
+<td>4.40132e-03</td>
+<td>4.17496e-03</td>
+</tr>
+<tr class="row-odd"><td>42.43</td>
+<td>0.833669E-03</td>
+<td>6.06992e-04</td>
+<td>7.02410e-04</td>
+</tr>
+<tr class="row-even"><td>127.28</td>
+<td>0.508029E-03</td>
+<td>3.32905e-04</td>
+<td>4.29214e-04</td>
+</tr>
+<tr class="row-odd"><td>212.13</td>
+<td>0.397582E-03</td>
+<td>2.62881e-04</td>
+<td>3.56999e-04</td>
+</tr>
+<tr class="row-even"><td>212.13</td>
+<td>0.397582E-03</td>
+<td>2.62881e-04</td>
+<td>3.56999e-04</td>
+</tr>
+<tr class="row-odd"><td>296.98</td>
+<td>0.333776E-03</td>
+<td>2.20374e-04</td>
+<td>3.08959e-04</td>
+</tr>
+<tr class="row-even"><td>381.84</td>
+<td>0.284057E-03</td>
+<td>1.86430e-04</td>
+<td>2.68508e-04</td>
+</tr>
+<tr class="row-odd"><td>466.69</td>
+<td>0.234339E-03</td>
+<td>1.52898e-04</td>
+<td>2.25524e-04</td>
+</tr>
+<tr class="row-even"><td>551.54</td>
+<td>0.179028E-03</td>
+<td>1.17072e-04</td>
+<td>1.74394e-04</td>
+</tr>
+<tr class="row-odd"><td>636.40</td>
+<td>0.121285E-03</td>
+<td>8.09283e-05</td>
+<td>1.19136e-04</td>
+</tr>
+<tr class="row-even"><td>721.25</td>
+<td>0.702010E-04</td>
+<td>4.91762e-05</td>
+<td>6.92742e-05</td>
+</tr>
+<tr class="row-odd"><td>806.10</td>
+<td>0.338008E-04</td>
+<td>2.57735e-05</td>
+<td>3.34027e-05</td>
+</tr>
+<tr class="row-even"><td>890.95</td>
+<td>0.132446E-04</td>
+<td>1.15115e-05</td>
+<td>1.31493e-05</td>
+</tr>
+<tr class="row-odd"><td>975.81</td>
+<td>0.417241E-05</td>
+<td>4.35332e-06</td>
+<td>4.19789e-06</td>
+</tr>
+<tr class="row-even"><td>1060.66</td>
+<td>0.104343E-05</td>
+<td>1.39077e-06</td>
+<td>1.08667e-06</td>
+</tr>
+<tr class="row-odd"><td>1145.51</td>
+<td>0.205903E-06</td>
+<td>3.75631e-07</td>
+<td>2.29099e-07</td>
+</tr>
+<tr class="row-even"><td>1230.37</td>
+<td>0.319697E-07</td>
+<td>8.60424e-08</td>
+<td>3.96335e-08</td>
+</tr>
+<tr class="row-odd"><td>1315.22</td>
+<td>0.387359E-08</td>
+<td>1.73675e-08</td>
+<td>5.76344e-09</td>
+</tr>
+</tbody>
+</table>
+<p>The analytic data were computed with the AT123DAT software package.
+A difference observed near downstream boundary for the Amanzi with the
+first-order transport scheme (Amanzi(1st)).
+The second-order transport scheme provides excellent match.</p>
+<p>(<a class="reference external" href="../../../verification/transport/dispersion_45_point_2d/amanzi_dispersion_45_point_2d-b.py">Source code</a>, <a class="reference external" href="../../../verification/transport/dispersion_45_point_2d/amanzi_dispersion_45_point_2d-b.png">png</a>, <a class="reference external" href="../../../verification/transport/dispersion_45_point_2d/amanzi_dispersion_45_point_2d-b.hires.png">hires.png</a>, <a class="reference external" href="../../../verification/transport/dispersion_45_point_2d/amanzi_dispersion_45_point_2d-b.pdf">pdf</a>)</p>
+<div class="figure align-center">
+<img alt="../../../_images/amanzi_dispersion_45_point_2d-b.png" src="../../../_images/amanzi_dispersion_45_point_2d-b.png" />
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../benchmarking/index.html" title="Benchmark Testing"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../dispersion_aligned_point_2d/amanzi_dispersion_aligned_point_2d.html" title="2D Dispersive Transport in a Uniform Flow Field (aligned)"
+             >previous</a> |</li>
+        <li><a href="../../../index.html">home</a>|&nbsp;</li>
+        <li><a href="../../../search.html">search</a>|&nbsp;</li>
+
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Verification Testing</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="../index.html" >Transport of Solutes: Advection, Dispersion and Diffusion</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2016, Amanzi Development Team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.
+    </div>
+  </body>
+</html>

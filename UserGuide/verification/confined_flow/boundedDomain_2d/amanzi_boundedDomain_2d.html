@@ -1,0 +1,288 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Transient Drawdown due to Pumping Wells in a Bounded Domain &mdash; Amanzi 0.86-dev documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.86-dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Amanzi 0.86-dev documentation" href="../../../index.html" />
+    <link rel="up" title="Confined Flow Tests" href="../index.html" />
+    <link rel="next" title="Unconfined Flow Tests" href="../../unconfined_flow/index.html" />
+    <link rel="prev" title="Transient Flow to a Pumping Well in an Anisotropic Aquifer (Hantush)" href="../hantush_anisotropic_2d/amanzi_hantush_anisotropic_2d.html" /> 
+ <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    TeX: {
+        extensions: ["mhchem.js"]
+    }
+  });
+</script>
+
+  </head>
+  <body role="document">
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<a href="../../../index.html"><img src="../../../_static/logo.png" border="0" alt="py4sci"/></a>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../unconfined_flow/index.html" title="Unconfined Flow Tests"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../hantush_anisotropic_2d/amanzi_hantush_anisotropic_2d.html" title="Transient Flow to a Pumping Well in an Anisotropic Aquifer (Hantush)"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../../index.html">home</a>|&nbsp;</li>
+        <li><a href="../../../search.html">search</a>|&nbsp;</li>
+
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Verification Testing</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="../index.html" accesskey="U">Confined Flow Tests</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Transient Drawdown due to Pumping Wells in a Bounded Domain</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#problem-specification">Problem Specification</a></li>
+<li><a class="reference internal" href="#id1">Problem Specification</a><ul>
+<li><a class="reference internal" href="#schematic">Schematic</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#results-and-comparison">Results and Comparison</a><ul>
+<li><a class="reference internal" href="#comparison-of-analytic-solution-and-amanzi-results">Comparison of  Analytic Solution and Amanzi Results</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#references">References</a></li>
+<li><a class="reference internal" href="#about">About</a><ul>
+<li><a class="reference internal" href="#status">Status</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../hantush_anisotropic_2d/amanzi_hantush_anisotropic_2d.html"
+                        title="previous chapter">Transient Flow to a Pumping Well in an Anisotropic Aquifer (Hantush)</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../../unconfined_flow/index.html"
+                        title="next chapter">Unconfined Flow Tests</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../../_sources/verification/confined_flow/boundedDomain_2d/amanzi_boundedDomain_2d.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="transient-drawdown-due-to-pumping-wells-in-a-bounded-domain">
+<h1>Transient Drawdown due to Pumping Wells in a Bounded Domain<a class="headerlink" href="#transient-drawdown-due-to-pumping-wells-in-a-bounded-domain" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>As we see from the comparison of results from Amanzi and Butler&#8217;s solutions, it is inevitable that the numerical solutions from the Amanzi model will not match the results from these analytical solutions at later time, because these analytical solutions were derived for the unbounded domains while in numerical simulations the domain is always bounded.  In this example, we will verify the Amanzi model using the solution for the bounded domain with uniform hydraulic properties.</p>
+</div>
+<div class="section" id="problem-specification">
+<h2>Problem Specification<a class="headerlink" href="#problem-specification" title="Permalink to this headline">¶</a></h2>
+<p>Transient flow in saturated uniform porous media can be represented by</p>
+<div class="math" id="equation-flow">
+<span class="eqno">(1)</span>\[\frac{\partial ^2 h}{\partial x^2}
+ + \frac{\partial ^2 h}{\partial y^2}
+ + \sum_{i=1}^{N_w} \frac{Q_i}{T} \delta(x-x_i)\delta(y-y_i) H(t-t_i)
+ = \frac{S}{T} \frac{\partial h}{\partial t}\]</div>
+<p>where
+<span class="math">\(h\)</span> [L] is the head,
+<span class="math">\(t\)</span> [T]is the time,
+<span class="math">\(T\)</span> [L<sup>2</sup>/T] is the transmissivity,
+<span class="math">\(S\)</span> [-] is the storage coefficient,
+<span class="math">\(Q_i\)</span> [L<sup>3</sup>/T]is the pumpage at a  well located at <span class="math">\((x_i,y_i)\)</span> that starts pumping at <span class="math">\(t_i\)</span>,
+<span class="math">\(N_w\)</span> is the number of pumping wells,
+<span class="math">\(\delta(x)\)</span> is the Direc delta function, being 1 for <span class="math">\(x = 0\)</span> and 0 otherwise, and
+<span class="math">\(H(x)\)</span> is the Heaviside function, being 1 for <span class="math">\(x \ge 0\)</span> and 0 otherwise.</p>
+<p>Initially the head is a constant everywhere in the domain:</p>
+<div class="math" id="equation-ic">
+<span class="eqno">(2)</span>\[h(x,y,0) = H_0.\]</div>
+<p>The boundary conditions are:</p>
+<div class="math">
+\[\]</div>
+<div class="math">
+\[\begin{split}h({\bf x}, t) =  0, \text{   for } {\bf x} \in \Gamma_D\\\end{split}\]</div>
+<div class="math" id="equation-bc">
+<span class="eqno">(3)</span>\[\begin{split}T \nabla h({\bf x,t}) \cdot {\bf n}({\bf x})  = q({\bf x}, t)  \text{  for } {\bf x} \in \Gamma_N\\\end{split}\]</div>
+<p>where <span class="math">\(\Gamma_D\)</span> is the Dirichlet boundary and <span class="math">\(\Gamma_D\)</span> is the Neumann boundary.</p>
+<p>The drawdown solution can be written as</p>
+<div class="math" id="equation-solution">
+<span class="eqno">(4)</span>\[s(x,y,t) = -\frac{4}{DT} \sum_{n=0}^{\infty} \sum_{m=1}^{\infty}
+ a_n \sin(\alpha_m x) \cos(\beta_n y)
+ \sum_{i =1}^{N_w} \frac{Q_i \sin(\alpha_n x_i) \cos(\beta_n y_i)} {\alpha_m^2 +\beta_n^2}
+ H(t-t_i) \left [1 - e^{-\frac{T}{S}(\alpha_m^2 + \beta_n^2)(t-t_i)} \;\right ]\]</div>
+<p>where <span class="math">\(\alpha_m = m \pi/L_1, m=1,2,\cdots\)</span>,
+<span class="math">\(\beta_n = n \pi/L_2, n=0,2,\cdots\)</span>,
+<span class="math">\(L_1\)</span> and <span class="math">\(L_2\)</span> are the domain size in the x and y directions, respectively,
+<span class="math">\(D = L_1L_2\)</span> is the area of the domain,
+<span class="math">\(a_0 =1/2\)</span>, and <span class="math">\(a_n =1\)</span> for <span class="math">\(n \ge 1\)</span>,</p>
+</div>
+<div class="section" id="id1">
+<h2>Problem Specification<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="schematic">
+<h3>Schematic<a class="headerlink" href="#schematic" title="Permalink to this headline">¶</a></h3>
+<p>The domain configuration and well locations are indicated in the following schematic.</p>
+<div class="align-center figure" id="id3">
+<a class="reference internal image-reference" href="../../../_images/config_bounded.jpg"><img alt="../../../_images/config_bounded.jpg" src="../../../_images/config_bounded.jpg" style="width: 600px;" /></a>
+<p class="caption"><span class="caption-text">Figure 1.  Schematic of verification problem  for bounded domains</span></p>
+</div>
+<p>The domain size is 2400m <span class="math">\(\times\)</span> 2400m. The boundary conditions are given as: constant pressure head of 1.07785 MPa (i.e., 100m) at the left and the right  boundaries, and a no-flow condition was imposed on the upper and lower boundaries. Initially the pressure head is 1.07785 MPa everywhere in the domain. The parameter values for the problem are given as:</p>
+<blockquote>
+<div><p>Transmissivity: <span class="math">\(\;\; T = 0.011574 \; m2/s\)</span>;</p>
+<p>Storativity: <span class="math">\(\;\; S = 2\times 10^{-4}\)</span>;</p>
+<p>Pumping rate: <span class="math">\(\;\; Q = 1000 \;m3/day (= 0.011574 \;m3/s)\)</span></p>
+<p>Pumping well location (1200 m, 1200 m) and pumping starts at <span class="math">\(t = 0\)</span>.</p>
+<p>Observation well locations (1224 m, 1200 m) and (1300 m, 1200 m), so  their distance  to the pumping well is 24m and 100m, respectively.</p>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="results-and-comparison">
+<h2>Results and Comparison<a class="headerlink" href="#results-and-comparison" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="comparison-of-analytic-solution-and-amanzi-results">
+<span id="plot"></span><h3>Comparison of  Analytic Solution and Amanzi Results<a class="headerlink" href="#comparison-of-analytic-solution-and-amanzi-results" title="Permalink to this headline">¶</a></h3>
+<p>(<a class="reference external" href="../../../verification/confined_flow/boundedDomain_2d/amanzi_boundedDomain_2d.py">Source code</a>, <a class="reference external" href="../../../verification/confined_flow/boundedDomain_2d/amanzi_boundedDomain_2d.png">png</a>, <a class="reference external" href="../../../verification/confined_flow/boundedDomain_2d/amanzi_boundedDomain_2d.hires.png">hires.png</a>, <a class="reference external" href="../../../verification/confined_flow/boundedDomain_2d/amanzi_boundedDomain_2d.pdf">pdf</a>)</p>
+<div class="figure align-center">
+<img alt="../../../_images/amanzi_boundedDomain_2d.png" src="../../../_images/amanzi_boundedDomain_2d.png" />
+</div>
+<p>The comparison shows that the results from the Amanzi model are nearly identical to those from the analytical solution.
+Detailed comparison can be found in <a class="reference internal" href="#lu2014report" id="id2">[Lu2014report]</a>.</p>
+</div>
+</div>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<table class="docutils citation" frame="void" id="lu2014report" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[Lu2014report]</a></td><td>Lu, Z., D. Harp, and K. Birdsell, Comparison of the Amanzi Model against Analytical Solutions and the FEHM Model, Tech. Report LA-UR-14-20898, Los Alamos National Laboratory, Los Alamos, 2014.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="about">
+<h2>About<a class="headerlink" href="#about" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">Directory: testing/verification/flow/saturated/transient/boundedDomain</p>
+</li>
+<li><p class="first">Authors:  Zhiming Lu (<a class="reference external" href="mailto:zhiming&#37;&#52;&#48;lanl&#46;gov">zhiming<span>&#64;</span>lanl<span>&#46;</span>gov</a>),  Dylan Harp (<a class="reference external" href="mailto:dharp&#37;&#52;&#48;lanl&#46;gov">dharp<span>&#64;</span>lanl<span>&#46;</span>gov</a>)</p>
+</li>
+<li><p class="first">Maintainer(s):  Zhiming Lu,  Dylan Harp</p>
+</li>
+<li><p class="first">Input Files:</p>
+<ul>
+<li><p class="first">amanzi_boundedDomain_2d.xml</p>
+<blockquote>
+<div><ul class="simple">
+<li>Spec: Version 2.0</li>
+<li>Mesh: Generated in running time</li>
+<li>Runs</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</li>
+<li><p class="first">Analytical Solutions</p>
+<ul>
+<li><p class="first">Directory: analytic/</p>
+</li>
+<li><p class="first">Executable: boundedDomain.x, compiled from FORTRAN code under Linux environment.</p>
+</li>
+<li><p class="first">Input Files:</p>
+<blockquote>
+<div><ul class="simple">
+<li>input</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">Output Files:</p>
+<blockquote>
+<div><ul class="simple">
+<li>test_h_tr.dat,  drawdown as a function of time for all observation wells</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<div class="section" id="status">
+<h3>Status<a class="headerlink" href="#status" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../unconfined_flow/index.html" title="Unconfined Flow Tests"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../hantush_anisotropic_2d/amanzi_hantush_anisotropic_2d.html" title="Transient Flow to a Pumping Well in an Anisotropic Aquifer (Hantush)"
+             >previous</a> |</li>
+        <li><a href="../../../index.html">home</a>|&nbsp;</li>
+        <li><a href="../../../search.html">search</a>|&nbsp;</li>
+
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Verification Testing</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="../index.html" >Confined Flow Tests</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2016, Amanzi Development Team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.
+    </div>
+  </body>
+</html>

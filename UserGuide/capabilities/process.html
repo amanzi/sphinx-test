@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Amanzi Process Capabilities &mdash; Amanzi 0.86-dev documentation</title>
+    
+    <link rel="stylesheet" href="../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.86-dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Amanzi 0.86-dev documentation" href="../index.html" />
+    <link rel="up" title="Amanzi Features and Capabilities" href="index.html" />
+    <link rel="next" title="Flow Models" href="flow.html" />
+    <link rel="prev" title="Amanzi Features" href="features.html" /> 
+ <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    TeX: {
+        extensions: ["mhchem.js"]
+    }
+  });
+</script>
+
+  </head>
+  <body role="document">
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<a href="../index.html"><img src="../_static/logo.png" border="0" alt="py4sci"/></a>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="flow.html" title="Flow Models"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="features.html" title="Amanzi Features"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">home</a>|&nbsp;</li>
+        <li><a href="../search.html">search</a>|&nbsp;</li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Amanzi Features and Capabilities</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="features.html"
+                        title="previous chapter">Amanzi Features</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="flow.html"
+                        title="next chapter">Flow Models</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/capabilities/process.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="amanzi-process-capabilities">
+<span id="amanzi-process-models"></span><h1>Amanzi Process Capabilities<a class="headerlink" href="#amanzi-process-capabilities" title="Permalink to this headline">¶</a></h1>
+<p>The following pages describe the subsurface flow, transport and
+chemistry process models currently supported by this release of
+<em>Amanzi</em>. For greater detail on the process models, please refer to
+the ASCEM document entitled <em>Mathematical Formulation Requirements
+and Specifications for the Process Models</em> referred to on the
+<a class="reference internal" href="../background/overview.html#ascem-overview"><span class="std std-ref">ASCEM Overview</span></a> page.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="flow.html">Flow Models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="flow.html#single-phase-richards">Single-Phase Richards</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="flow.html#van-genuchten-relative-permeability">Van Genuchten Relative Permeability</a></li>
+<li class="toctree-l3"><a class="reference internal" href="flow.html#brooks-corey-relative-permeability">Brooks-Corey Relative Permeability</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="flow.html#single-phase-saturated">Single-Phase Saturated</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow.html#boundary-conditions">Boundary Conditions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow.html#initial-conditions">Initial Conditions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow.html#source-terms">Source Terms</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="transport.html">Transport Models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="transport.html#advective-flux">Advective Flux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="transport.html#dispersive-flux">Dispersive Flux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="transport.html#diffusive-flux">Diffusive Flux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="transport.html#boundary-conditions">Boundary Conditions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="transport.html#initial-conditions">Initial Conditions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="transport.html#source-terms">Source Terms</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="chemistry.html">Chemistry Models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="chemistry.html#stoichiometry">Stoichiometry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chemistry.html#geochemical-equilibrium">Geochemical Equilibrium</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chemistry.html#total-component-concentrations">Total Component Concentrations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chemistry.html#transport-and-chemistry-coupling-operator-splitting-approach">Transport and Chemistry Coupling: Operator Splitting Approach</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chemistry.html#geochemical-kinetics">Geochemical Kinetics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chemistry.html#geochemical-engines">Geochemical Engines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chemistry.html#native-geochemistry">Native Geochemistry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chemistry.html#alquimia-api">Alquimia API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chemistry.html#references">References</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="flow.html" title="Flow Models"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="features.html" title="Amanzi Features"
+             >previous</a> |</li>
+        <li><a href="../index.html">home</a>|&nbsp;</li>
+        <li><a href="../search.html">search</a>|&nbsp;</li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >Amanzi Features and Capabilities</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2016, Amanzi Development Team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.
+    </div>
+  </body>
+</html>
